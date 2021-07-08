@@ -36,8 +36,11 @@ consumer.on("ready", function(arg) {
 });
 
 consumer.on("data", function(m) {
- console.log(m.value.toString());
+  console.log("data received:");
+   console.log(m.value.toString());
 });
+
+
 consumer.on("disconnected", function(arg) {
   process.exit();
 });
