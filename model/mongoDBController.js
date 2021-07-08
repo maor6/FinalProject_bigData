@@ -1,33 +1,55 @@
-const { MongoClient } = require('mongodb');
+const MongoClient = require('mongodb').MongoClient;
 const uri = "mongodb+srv://dbUser:dbUser@cluster0.vmy1y.mongodb.net/myFirstDatabase?retryWrites=true&w=majority";
-const client = new MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology: true });
 
 
-(async () => {
-    await client.connect();
-    const database = client.db("test1");
-    const collection = database.collection("cars");
+var Db = {
+    CreateEvent: function (m) {
 
-    await find();
-    await client.close();
-})();
+        //---------choose your db here ------------------
+        MongoClient.connect(uri, { useNewUrlParser: true, useUnifiedTopology: true }, function (err, db) {
+            if (err) throw err;
+            const dbo = db.db("test1");
+            dbo.collection("cars").insertOne(m, function (err, res) {
+                if (err) throw err;
+                console.log("1 event inserted");
+                db.close();
+            });
+        });
 
-const find = async function find() {
-    const database = client.db("test1");
-    const collection = database.collection("cars");
-    const findResult = await collection.findOne({seat: 2});
-    console.log(findResult)
-}
+        //---------------------------------------
+        //כאן צריך להחליט מה מחזירים לצד לקוח ולהפעיל את הלוגיקה הנדרשת
+        // אולי נרצה לעדכן עוד אלמנטים בדף נניח ממוצעים גרף וכו, יש לעדכן את האובייקט הנשלח
+    },
+    DeleteOrder: function (info) {
+        console.log('Delete Order: ' + info);
+    },
+    UpdateOrder: function (info) {
+        console.log('Update Order ' + info);
+    },
+    ReadOrders: function (renderTheView) {
+        var sum=0;
+        MongoClient.connect(uri, { useNewUrlParser: true, useUnifiedTopology: true }, function (err, db) {
+            if (err) throw err;
+            var dbo = db.db("salesDb");
+            dbo.collection("transactions").find({}, { projection: { _id: 0, quantity: 1 } }).toArray(function (err, result) {
+                if (err) throw err;
+                console.log(result);
+                sum = sumHelper(result);
 
-const insert = async function insert(msg) {
-    const database = client.db("test1");
-    const collection = database.collection("cars");
-    const res = await collection.insertOne({msg});
-    console.log(res.insertedId);
-}
+                db.close();
+                var cardData = {
+                    id:"totalSum",
+                    title: "אריאל",
+                    totalSum: sum,
+                    percent: 0.8,
+                    icon: "work"
+                };
 
+                renderTheView(cardData);
 
-module.exports = {
-    find: find,
-    insert: insert
+            });
+        });
+    }
 };
+
+module.exports = Db

@@ -3,6 +3,9 @@
 const uuid = require("uuid");
 const Kafka = require("node-rdkafka");
 
+//------------mongo------------------
+const mongo = require('./../model/mongoDBController');
+
 const kafkaConf = {
   "group.id": "cloudkarafka-example",
   "metadata.broker.list": "dory-01.srvs.cloudkafka.com:9094,dory-02.srvs.cloudkafka.com:9094,dory-03.srvs.cloudkafka.com:9094".split(","),
@@ -36,8 +39,10 @@ consumer.on("ready", function(arg) {
 });
 
 consumer.on("data", function(m) {
-  console.log("data received:");
-   console.log(m.value.toString());
+  console.log("data received");
+  //console.log(m.value.toString());
+  const json = JSON.parse(m.value.toString());
+  mongo.CreateEvent(json);
 });
 
 
