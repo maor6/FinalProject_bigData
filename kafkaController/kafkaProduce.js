@@ -27,8 +27,8 @@ producer.on("ready", function(arg) {
 producer.connect();
 
 module.exports.publish= function(msg)  // export a function
-{   
-  m=JSON.stringify(msg);  // turn the msg to string
+{
+  let m = JSON.stringify(msg);  // turn the msg to string
   producer.produce(topic, -1, genMessage(m), uuid.v4());  
-  //producer.disconnect();   
+  //producer.disconnect();
 }

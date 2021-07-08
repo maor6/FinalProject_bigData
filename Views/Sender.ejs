@@ -51,7 +51,7 @@
             cSection.innerHTML = "<select><option value='1'>1</option><option value='2'>2</option><option value='3'>3</option><option value='4'>4</option><option value='5'>5</option></select>";
             cCarType.innerHTML = "<select><option value='private'>פרטית</option><option value='van'>מסחרית</option><option value='truck'>משאית</option></select>";
             cDayInWeek.innerHTML = "<div id='" + daysInWeek[dayInWeek] + "''>" + `${daysInWeek[dayInWeek]}` + "</div>";
-            cDay.innerHTML = "<select><option value='male'>יום מיוחד</option><option value='female'>יום רגיל</option></select>";
+            cDay.innerHTML = "<select><option value='regularDay'>יום רגיל</option><option value='specialDay'>יום מיוחד</option></select>";
             cEnd.innerHTML = "<button onclick='reportEndCall(this.parentNode.parentNode)'>סיום</button>";
         }
 
@@ -62,14 +62,13 @@
             }
 
             var message = {};
-            message.id = row.cells[0].getElementsByTagName('div')[0].id;
-            message.event = row.cells[2].getElementsByTagName('select')[0].value;
-            message.section = row.cells[1].getElementsByTagName('select')[0].value;
+            //message.id = row.cells[0].getElementsByTagName('div')[0].id;
+            message.event = row.cells[1].getElementsByTagName('select')[0].value;
+            message.section = row.cells[2].getElementsByTagName('select')[0].value;
             message.carType = row.cells[3].getElementsByTagName('select')[0].value;
             message.day = row.cells[4].getElementsByTagName('select')[0].value;
             message.dayInWeek = (row.cells[5].getElementsByTagName('div'))[0].id;
-            message.totalTime = (parseInt(Date.now()) - parseInt(message.id)) / 1000; // seconds
-
+            //message.totalTime = (parseInt(Date.now()) - parseInt(message.id)) / 1000; // seconds
             socket.emit("callDetails", message);
             deleteRow(row);
         }
@@ -78,7 +77,6 @@
             var i = row.rowIndex;
             document.getElementById('openConversations').deleteRow(i);
         }
-
 
     </script>
 </head>
