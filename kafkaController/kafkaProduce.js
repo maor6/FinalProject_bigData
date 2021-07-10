@@ -25,7 +25,12 @@ const genMessage = m => new Buffer.alloc(m.length,m);
 producer.on("ready", function(arg) {
   console.log(`producer is ready.`);
 });
-producer.connect();
+
+
+(async () => {
+  await producer.connect();
+  makeEvents();
+})();
 
 function randomDate(start, end, startHour, endHour) {
   var date = new Date(+start + Math.random() * (end - start));
@@ -33,6 +38,7 @@ function randomDate(start, end, startHour, endHour) {
   date.setHours(hour);
   return date;
 }
+
 
 const Events = {  // enum for days in the week
   0: "enter road",
@@ -58,19 +64,60 @@ const DaysInWeek = {  // enum for days in the week
 }
 
 async function makeEvents() {
+  var map = {};
+
   while (true) {
-    var message = {};
-    message.date = randomDate(new Date(2021, 0, 1), new Date(), 0, 24);
-    //message.id = row.cells[0].getElementsByTagName('div')[0].id;
-    message.event = Events[Math.floor(Math.random() * 4)];
-    message.section = Math.floor(Math.random() * 5) + 1;
-    message.carType = CarType[Math.floor(Math.random() * 3)];
-    message.isSpecialDay = Math.random() < 0.85;
-    message.dayInWeek = DaysInWeek[message.date.getDay().toString()];
-    //message.totalTime = (parseInt(Date.now()) - parseInt(message.id)) / 1000; // seconds
+    var key = Math.floor(Math.random() * 5);
+    if(key in map) {
+      var numOfSection = map[key].section;
+      if(numOfSection === 5) {  // Car is in the last section and exit the road
+        exitRoad(map, key);
+      }
+      else {
+        if(Math.random() < 0.6) {  // Probability that car continue to next section
+          map[key].eventType = Events[3];
+          //publish(map[key]);
+          console.log(map[key]);
+          map[key].eventType = Events[1];
+          map[key].section = map[key].section + 1; //enter to the next section
+          //publish(map[key]);
+          console.log(map[key]);
+        }
+        else {
+          exitRoad(map, key);
+        }
+      }
+    }
+    else {
+      var event = {}; // create a new event and add to map
+      event.date = randomDate(new Date(2021, 0, 1), new Date(), 0, 24);
+      //message.id = row.cells[0].getElementsByTagName('div')[0].id;
+      event.eventType = Events[0];
+      event.section = Math.floor(Math.random() * 5) + 1;
+      event.carType = CarType[Math.floor(Math.random() * 3)];
+      event.isSpecialDay = Math.random() < 0.15;
+      event.dayInWeek = DaysInWeek[event.date.getDay().toString()];
+      //message.totalTime = (parseInt(Date.now()) - parseInt(message.id)) / 1000; // seconds
+      map[key] = event;
+      //publish(map[key]);
+      console.log(map[key]);
+      map[key].eventType = Events[1];
+      //publish(map[key]);
+      console.log(map[key]);
+    }
+
     await sleep(1000);
-    console.log(message);
   }
+}
+
+function exitRoad(map, key) {
+  map[key].eventType = Events[3];
+  //publish(map[key]);
+  console.log(map[key]);
+  map[key].eventType = Events[2];
+  //publish(map[key]);
+  console.log(map[key]);
+  delete map[key];
 }
 
 function sleep(ms) {
@@ -79,11 +126,10 @@ function sleep(ms) {
   });
 }
 
-makeEvents();
 
-module.exports.publish= function(msg)  // export a function
+module.exports.publish= function (msg)  // export a function
 {
   let m = JSON.stringify(msg);  // turn the msg to string
-  producer.produce(topic, -1, genMessage(m), uuid.v4());  
+  producer.produce(topic, -1, genMessage(m), uuid.v4());
   //producer.disconnect();
-}
+};
