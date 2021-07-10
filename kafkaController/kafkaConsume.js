@@ -6,6 +6,9 @@ const Kafka = require("node-rdkafka");
 //------------mongo------------------
 const mongo = require('./../model/mongoDBController');
 
+//----------Redis--------------------
+const redis = require('./../model/RedisForArielSender');
+
 const kafkaConf = {
   "group.id": "cloudkarafka-example",
   "metadata.broker.list": "dory-01.srvs.cloudkafka.com:9094,dory-02.srvs.cloudkafka.com:9094,dory-03.srvs.cloudkafka.com:9094".split(","),
@@ -43,6 +46,8 @@ consumer.on("data", function(m) {
   //console.log(m.value.toString());
   const json = JSON.parse(m.value.toString());
   mongo.CreateEvent(json);
+  // need to save in redis here
+  redis.updateNumCars(json);
 });
 
 
@@ -54,6 +59,6 @@ consumer.on('event.error', function(err) {
   process.exit(1);
 });
 consumer.on('event.log', function(log) {
-  console.log(log);
+  //console.log(log);
 });
 consumer.connect();
