@@ -46,7 +46,6 @@ consumer.on("data", function(m) {
   //console.log(m.value.toString());
   const json = JSON.parse(m.value.toString());
   mongo.CreateEvent(json);
-  // need to save in redis here
   redis.updateNumCars(json);
 });
 

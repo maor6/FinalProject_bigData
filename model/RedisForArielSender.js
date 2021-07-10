@@ -3,7 +3,7 @@ var app = require('express')();
 var server = require('http').Server(app);
 var redis = require('redis');
 var redisClient = redis.createClient();
-var sub = redis.createClient();
+
 
 // for explanations : https://www.sitepoint.com/using-redis-node-js/
 
@@ -52,17 +52,21 @@ app.use(function (req, res, next) {
     next(err);
 });
 
-
-redisClient.on('connect', function () {
-    console.log('Sender connected to Redis');
+function initialize() {
     redisClient.set('NumberOfCars', 0, function (err, reply) {
         console.log("NumberOfCars " + reply);
     });
 
-    redisClient.hmset('Sections',"one", 'Sorek',"two", 'Nesharim',"three", 'BenShemen', "four",'nashonim',"five", 'kesem');
-    redisClient.hgetall('Sections', function (err, object) {
-        console.log(object);
-    });
+
+    // redisClient.hmset('Sections',"one", 'Sorek',"two", 'Nesharim',"three", 'BenShemen', "four",'nashonim',"five", 'kesem');
+    // redisClient.hgetall('Sections', function (err, object) {
+    //     console.log(object);
+    //});
+}
+
+redisClient.on('connect', function () {
+    console.log('Sender connected to Redis');
+    initialize();
 });
 
 server.listen(6062, function () {
@@ -77,8 +81,15 @@ const Db = {
             if (event.eventType === "enter road") {
                 rep++;
             }
+
             else if(event.eventType === "exit road") {
                 rep--;
+            }
+            else if(event.eventType === "enter section") {
+                redisClient.hmset(event.section, event._id, JSON.stringify(event));
+            }
+            else {
+                redisClient.del(event.section, event._id);  // why do not have a delete function
             }
 
             redisClient.set('NumberOfCars', rep, function (err, reply2) {
