@@ -1,15 +1,17 @@
 
 *.txt
+*.csv
+*.log
 
 # dependencies
 /node_modules
 /.pnp
 .pnp.js
-.csv
-.log
-.txt
+
+
 # testing
 /coverage
+
 storage/
 # production
 /build
