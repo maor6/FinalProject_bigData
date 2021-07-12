@@ -5,6 +5,7 @@
 /node_modules
 /.pnp
 .pnp.js
+.csv
 
 # testing
 /coverage
@@ -15,5 +16,4 @@
 # misc
 .DS_Store
 .env
-.csv
 npm-debug.log*
