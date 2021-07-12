@@ -15,4 +15,5 @@
 # misc
 .DS_Store
 .env
+.csv
 npm-debug.log*

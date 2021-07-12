@@ -1,9 +1,9 @@
-var express = require('express');
-var app = require('express')();
-var server = require('http').Server(app);
-var redis = require('redis');
-var redisClient = redis.createClient();
-var sub = redis.createClient()
+const express = require('express');
+const app = require('express')();
+const redis = require('redis');
+const redisClient = redis.createClient();
+const server = require('http').createServer(app);
+
 
 redisClient.subscribe('message'); 
 
@@ -11,7 +11,7 @@ app.get('/', (req, res) => res.send('Hello World!'))
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
-    var err = new Error('Not Found');
+    const err = new Error('Not Found');
     err.status = 404;
     next(err);
 });
@@ -26,19 +26,25 @@ app.use(function(err, req, res, next) {
 });
 
 
-redisClient.on("message", function (channel, data) {
-    var data = JSON.parse(data);
+redisClient.on("message", function (channel, msg) {
+    let data = JSON.parse(msg);
     // do things with the data
-    data.variable1 = 3;
-    data.variable2 = "hello";
-    console.log(data.message);
+    // data.variable1 = 3;
+    // data.variable2 = "hello";
+    let number = 0;
+    redisClient.get('NumberOfCars', (err, reply) => {
+        number = reply;
+    });
+
+    //TODO with WS render the page to update the number of cars
 });
 
+
 redisClient.on('connect', function() {
-    console.log('Reciver connected to Redis');
+    console.log('Receiver connected to Redis');
 });
 
 
 server.listen(6061, function() {
-    console.log('reciver is running on port 6061');
+    console.log('receiver is running on port 6061');
 });

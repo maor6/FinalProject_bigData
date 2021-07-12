@@ -42,7 +42,7 @@ consumer.on("ready", function(arg) {
 });
 
 consumer.on("data", function(m) {
-  console.log("data received");
+  //console.log("data received");
   //console.log(m.value.toString());
   const json = JSON.parse(m.value.toString());
   mongo.CreateEvent(json);

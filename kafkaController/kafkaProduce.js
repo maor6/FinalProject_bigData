@@ -71,7 +71,7 @@ const DaysInWeek = {  // enum for days in the week
   6: "Saturday",
 }
 
-async function  makeEvents () {
+async function  makeEvents () {  // Simulator TODO wirte it to new file
   var map = {};
 
   while (true) {
@@ -95,7 +95,7 @@ async function  makeEvents () {
       }
     }
     else {
-      var event = {}; // create a new event and add to map
+      let event = {}; // create a new event and add to map
       event.date = randomDate(new Date(2021, 0, 1), new Date(), 0, 24);
       //message.id = row.cells[0].getElementsByTagName('div')[0].id;
       event.eventType = Events[0];
@@ -115,11 +115,11 @@ async function  makeEvents () {
   }
 }
 
-function exitRoad(map, key) {
+async function exitRoad(map, key) {  // help function that handle when car is exit the road
   map[key].eventType = Events[3];
-  publish(map[key]);
+  await publish(map[key]);
   map[key].eventType = Events[2];
-  publish(map[key]);
+  await publish(map[key]);
   delete map[key];
 }
 

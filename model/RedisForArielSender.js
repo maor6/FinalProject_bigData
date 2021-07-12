@@ -1,12 +1,11 @@
 var express = require('express');
-var app = require('express')();
-var server = require('http').Server(app);
-var redis = require('redis');
-var redisClient = redis.createClient();
+const app = require('express')();
+const server = require('http').Server(app);
+const redis = require('redis');
+const redisClient = redis.createClient();
 
 
 // for explanations : https://www.sitepoint.com/using-redis-node-js/
-
 
 app.get('/test', function (req, res) {
 
@@ -54,14 +53,7 @@ app.use(function (req, res, next) {
 
 function initialize() {
     redisClient.set('NumberOfCars', 0, function (err, reply) {
-        console.log("NumberOfCars " + reply);
     });
-
-
-    // redisClient.hmset('Sections',"one", 'Sorek',"two", 'Nesharim',"three", 'BenShemen', "four",'nashonim',"five", 'kesem');
-    // redisClient.hgetall('Sections', function (err, object) {
-    //     console.log(object);
-    //});
 }
 
 redisClient.on('connect', function () {
@@ -69,34 +61,39 @@ redisClient.on('connect', function () {
     initialize();
 });
 
-server.listen(6062, function () {
-    console.log('Sender is running on port 6062');
-});
 
 const Db = {
     updateNumCars: function (event) {
         redisClient.get('NumberOfCars', (err, reply) => {
-            let rep = reply;
+            let updatedCarsNum = reply;
             if (err) throw err;
             if (event.eventType === "enter road") {
-                rep++;
+                updatedCarsNum++;
             }
 
             else if(event.eventType === "exit road") {
-                rep--;
+                updatedCarsNum--;
             }
             else if(event.eventType === "enter section") {
                 redisClient.hmset(event.section, event._id, JSON.stringify(event));
             }
             else {
-                redisClient.del(event.section, event._id);  // why do not have a delete function
+                redisClient.del(event.section, event._id);
             }
+            if (updatedCarsNum < 0) updatedCarsNum = 0;
+            redisClient.set('NumberOfCars', updatedCarsNum, function (err, reply2) {
+                console.log("number of Cars: " + updatedCarsNum);
+            });
 
-            redisClient.set('NumberOfCars', rep, function (err, reply2) {
-                console.log("number of Cars: " + rep);
+            redisClient.publish("message", JSON.stringify(event), function () {
             });
         });
     }
 }
+
+
+server.listen(6062, function () {
+    console.log('Sender is running on port 6062');
+});
 
 module.exports = Db;
