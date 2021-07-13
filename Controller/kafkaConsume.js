@@ -20,21 +20,25 @@ const kafkaConf = {
   "debug": "generic,broker,security"
 };
 
+
 const prefix = "ozdzk6dk-";
 const topic = `${prefix}cars`;
-const producer = new Kafka.Producer(kafkaConf);
+// const producer = new Kafka.Producer(kafkaConf);
 
 const genMessage = m => new Buffer.alloc(m.length,m);
 //const prefix = process.env.CLOUDKARAFKA_USERNAME;
 
 const topics = [topic];
-const consumer = new Kafka.KafkaConsumer(kafkaConf, {
+var consumer = new Kafka.KafkaConsumer(kafkaConf, {
   "auto.offset.reset": "beginning"
 });
+
+consumer.connect();
 
 consumer.on("error", function(err) {
   console.error(err);
 });
+
 consumer.on("ready", function(arg) {
   console.log(`Consumer ${arg.name} ready`);
   consumer.subscribe(topics);
@@ -42,22 +46,23 @@ consumer.on("ready", function(arg) {
 });
 
 consumer.on("data", function(m) {
-  //console.log("data received");
-  //console.log(m.value.toString());
+  // console.log("data received");
+  // console.log(m.value.toString());
   const json = JSON.parse(m.value.toString());
-  mongo.CreateEvent(json);
-  redis.updateNumCars(json);
+  mongo.CreateEvent(json);  // save data to mongoDB
+  redis.updateNumCars(json);  // save data to redis
 });
 
 
 consumer.on("disconnected", function(arg) {
   process.exit();
 });
+
 consumer.on('event.error', function(err) {
   console.error(err);
   process.exit(1);
 });
+
 consumer.on('event.log', function(log) {
   //console.log(log);
 });
-consumer.connect();

@@ -1,4 +1,4 @@
-var express = require('express');
+const express = require('express');
 const app = require('express')();
 const server = require('http').Server(app);
 const redis = require('redis');
@@ -56,7 +56,7 @@ function initialize() {
     });
 }
 
-redisClient.on('connect', function () {
+redisClient.on('connect', function () {  // when we connect to redis
     console.log('Sender connected to Redis');
     initialize();
 });
@@ -85,7 +85,7 @@ const Db = {
                 console.log("number of Cars: " + updatedCarsNum);
             });
 
-            redisClient.publish("message", JSON.stringify(event), function () {
+            redisClient.publish("message", JSON.stringify(event), function () {  // send message that update the dashboard
             });
         });
     }

@@ -10,10 +10,11 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "bigml": "^1.6.0",
+    "bigml": "^1.22.2",
     "body-parser": "^1.19.0",
     "ejs": "^3.1.6",
     "express": "^4.17.1",
+    "json2csv": "^5.0.6",
     "kafka-node": "^5.0.0",
     "mongodb": "^3.6.10",
     "node-rdkafka": "^2.8.1",

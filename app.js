@@ -5,7 +5,7 @@ const io = require("socket.io")(server);
 const port = 3000;
 
 //------------ kafka------------
-const kafka = require('./kafkaController/kafkaProduce');
+const kafka = require('./Controller/kafkaProduce');
 
 //-----------redis--------------
 const redis = require('./model/RedisForArielReciver');
