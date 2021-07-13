@@ -15,18 +15,15 @@ const bigML = {
                             if (!error && modelInfo) {
                                 console.log(modelInfo.resource);
                                 let localModel = new bigml.LocalModel(modelInfo.resource);
-                                return localModel;
-                                // localModel.predict({'petal length': 1}, function(error, prediction) {
-                                //     console.log(prediction)
-                                // });
-                                // const prediction = new bigml.Prediction();
-                                // prediction.create(modelInfo, {'eventType': "exit road"}, function (error, predictionInfo) {
-                                //     console.log(prediction.resource);
-                                //     const localModel = new bigml.LocalModel(prediction.resource);
-                                //     localModel.predict({'carType': "truck", 'eventType': "exit road"}, function(error, prediction) {
-                                //         console.log("the prediction is: " + prediction.prediction);
-                                //     });
-                                // });
+                                // return localModel;
+                                const prediction = new bigml.Prediction();
+                                prediction.create(modelInfo, {'eventType': "exit road"}, function (error, predictionInfo) {
+                                    console.log(prediction.resource);
+                                    const localModel = new bigml.LocalModel(prediction.resource);
+                                    localModel.predict({'carType': "truck", 'eventType': "exit road"}, function(error, prediction) {
+                                        console.log("the prediction is: " + prediction.prediction);
+                                    });
+                                });
                             }
                         });
                     }
