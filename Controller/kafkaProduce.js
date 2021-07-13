@@ -98,11 +98,11 @@ async function  makeEvents () {  // Simulator TODO wirte it to new file
       let event = {}; // create a new event and add to map
       event.date = randomDate(new Date(2021, 0, 1), new Date(), 0, 24);
       //message.id = row.cells[0].getElementsByTagName('div')[0].id;
-      event.eventType = Events[0];
       event.section = Math.floor(Math.random() * 5) + 1;
       event.carType = CarType[Math.floor(Math.random() * 3)];
       event.isSpecialDay = Math.random() < 0.15;  // TODO need to fix SpecialDay to get it right
       event.dayInWeek = DaysInWeek[event.date.getDay().toString()];
+      event.eventType = Events[0];
       //message.totalTime = (parseInt(Date.now()) - parseInt(message.id)) / 1000; // seconds
 
       map[key] = event;
