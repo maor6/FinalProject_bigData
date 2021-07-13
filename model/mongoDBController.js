@@ -26,16 +26,15 @@ const Db = {
     UpdateOrder: function (info) {
         console.log('Update Order ' + info);
     },
-    ReadData: function () {
-        let sum = 0;
-        MongoClient.connect(uri, {useNewUrlParser: true, useUnifiedTopology: true}, function (err, db) {
+    ReadData: function (fun) {
+
+         MongoClient.connect(uri, {useNewUrlParser: true, useUnifiedTopology: true}, function (err, db) {
             if (err) throw err;
             const dbo = db.db("test1");
-            dbo.collection("cars").find({}).toArray(function (err, result) {
+             dbo.collection("cars").find({}).toArray(function (err, result) {
                 if (err) throw err;
-                console.log(result);
+                fun(result);
                 db.close();
-                return result;
             });
         });
     }

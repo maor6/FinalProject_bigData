@@ -36,7 +36,7 @@ redisClient.on("message", function (channel, msg) {
         number = reply;
     });
 
-    //TODO with WS render the page to update the number of cars
+    // TODO with WS render the page to update the number of cars
 });
 
 
