@@ -16,6 +16,10 @@ const kafkaConf = {
   "debug": "generic,broker,security"
 };
 
+
+const prefix = "ozdzk6dk-";
+const topic = `${prefix}cars`;
+
 function publish(msg)  // export a function
 {
   msg._id = uuid.v4();
@@ -25,8 +29,6 @@ function publish(msg)  // export a function
 };
 
 
-const prefix = "ozdzk6dk-";
-const topic = `${prefix}events`;
 const producer = new Kafka.Producer(kafkaConf);
 
 const genMessage = m => new Buffer.alloc(m.length,m);
@@ -37,9 +39,6 @@ producer.on("ready", function(arg) {
 });
 
 
-(async () => {
-  await producer.connect();
-})();
-
+producer.connect();
 
 module.exports.publish= publish;
