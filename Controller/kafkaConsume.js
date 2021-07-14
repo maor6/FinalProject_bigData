@@ -51,6 +51,9 @@ consumer.on("data", function(m) {
   const json = JSON.parse(m.value.toString());
   mongo.CreateEvent(json);  // save data to mongoDB
   redis.updateNumCars(json);  // save data to redis
+  if (json.eventType === "enter road") {
+    // TODO bigML predict
+  }
 });
 
 

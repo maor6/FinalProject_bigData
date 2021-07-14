@@ -37,7 +37,7 @@ const bigML = {
                 if (!error && predictionInfo) {
                     console.log(prediction.resource);
                     const localModel = new bigml.LocalModel(prediction.resource);
-                    localModel.predict({'_id': event._id, 'carType': event.carType, 'eventType': "exit road"}, function(error, prediction) {
+                    localModel.predict({'carType': event.carType, 'exitFrom': "exit road"}, function(error, prediction) {
                         console.log("the prediction is: " + prediction.prediction);
                     });
                 }
@@ -56,5 +56,6 @@ const bigML = {
 //         console.log("the prediction is: " + prediction.prediction);
 //     });
 
-
+// bigML.createModel();
+// bigML.predict();
 module.exports = bigML
