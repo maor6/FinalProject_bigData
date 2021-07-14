@@ -51,6 +51,7 @@ io.on("connection", (socket) => {
     socket.on("totalWaitingCalls", (msg) => { console.log(msg.totalWaiting); });
     socket.on("callDetails", (msg) => { console.log(msg);kafka.publish(msg); });
     socket.on('train', (msg) => { bigML.createModel();});
+    socket.on('predict', (msg) => {});  // TODO start/stop predict every car that entered with the local model
 });
 
 

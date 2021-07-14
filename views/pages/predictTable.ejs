@@ -170,8 +170,8 @@
   </section>
 
   <button onclick="train()">Train</button>
-  <button>Start predict</button>
-  <button>Stop predict</button>
+  <button onclick="predict(true)">Start predict</button>
+  <button onclick="predict(false)">Stop predict</button>
 
 <!--  <script>-->
 <!--    // '.tbl-content' consumed little space for vertical scrollbar, scrollbar width depend on browser/os/platfrom. Here calculate the scollbar width .-->
@@ -184,6 +184,10 @@
 <script>
   function train() {
     socket.emit('train', "msg");
+  }
+
+  function predict(value) {
+    socket.emit('predict', value);
   }
 </script>
 
