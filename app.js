@@ -5,10 +5,13 @@ const io = require("socket.io")(server);
 const port = 3000;
 
 //------------ kafka------------
-const kafka = require('./Controller/kafkaProduce');
+// const kafka = require('./Controller/kafkaProduce');
 
 //-----------redis--------------
 const redis = require('./model/RedisForArielReciver');
+
+//-----------bigML--------------
+const bigML = require('./bigMLController');
 
 const bodyParser = require('body-parser');
 app.use(bodyParser.json());
@@ -24,7 +27,11 @@ app.get('/', (req, res) => {
 
 app.get('/send', (req, res) => {
     res.render('./pages/sender');
-})
+});
+
+app.get('/table', (req, res) => {
+    res.render('./pages/predictTable');
+});
 
 app.get('/dashboard', (req, res) => {
     const cardData = {
@@ -41,8 +48,9 @@ app.get('/dashboard', (req, res) => {
 //------------ Socket.io ----------------
 io.on("connection", (socket) => {
     console.log("new user connected");
-    socket.on("totalWaitingCalls", (msg) => { console.log(msg.totalWaiting) });
-    socket.on("callDetails", (msg) => { console.log(msg);kafka.publish(msg) });
+    socket.on("totalWaitingCalls", (msg) => { console.log(msg.totalWaiting); });
+    socket.on("callDetails", (msg) => { console.log(msg);kafka.publish(msg); });
+    socket.on('train', (msg) => { bigML.createModel();});
 });
 
 
