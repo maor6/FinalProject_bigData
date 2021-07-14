@@ -22,7 +22,7 @@ const topic = `${prefix}cars`;
 
 function publish(msg)  // export a function
 {
-  msg._id = uuid.v4();
+  msg._id = uuid.v1();
   let m = JSON.stringify(msg);  // turn the msg to string
   producer.produce(topic, -1, genMessage(m), msg._id);
   //producer.disconnect();
