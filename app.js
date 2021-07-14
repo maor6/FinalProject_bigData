@@ -5,7 +5,7 @@ const io = require("socket.io")(server);
 const port = 3000;
 
 //------------ kafka------------
-// const kafka = require('./Controller/kafkaProduce');
+const kafka = require('./Controller/kafkaProduce');
 
 //-----------redis--------------
 const redis = require('./model/RedisForArielReciver');
@@ -21,6 +21,11 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.set('view engine', 'ejs');
 app.use(express.static("public"));
 
+
+const dash = require("./routes/dashBoard");
+app.use("/dashboard", dash);
+
+
 app.get('/', (req, res) => {
     res.send("<a href='/send'>Send</a> <br/><a href=''>View</a>");
 });
@@ -33,17 +38,6 @@ app.get('/table', (req, res) => {
     res.render('./pages/predictTable');
 });
 
-app.get('/dashboard', (req, res) => {
-    const cardData = {
-        id: "totalSum",
-        title: "אריאל",
-        totalSum: 5,
-        percent: 0.8,
-        icon: "work"
-    };
-    const cards = ["Borrowed", "Annual Profit", "Lead Conversion", "Average Income",];
-    res.render("./pages/index",{card:cardData});
-});
 
 //------------ Socket.io ----------------
 io.on("connection", (socket) => {
