@@ -23,6 +23,7 @@
 
     .tbl-headerRight{
       background-color: rgba(255,255,255,0.3);
+
     }
     .tbl-content{
       height:auto;
@@ -94,15 +95,15 @@
     const socket = io.connect();
 
     function setWs() {
-      socket.on('new data', function (msg) {  // when get data from the socket
+      socket.on('update', function (msg) {  // when get data from the socket
         alert("total number: " + msg);
-        document.getElementById('totalSum').innerHTML=msg.value;
+        //document.getElementById('totalSum').innerHTML=msg.value;
       });
     }
   </script>
 
 </head>
-<body>
+<body onload="setWs()">
   <section>
     <!--for demo wrap-->
     <h1>Prediction Table</h1>
@@ -129,6 +130,7 @@
           <td>$1.38</td>
           <td>+2.01</td>
           <td>-0.36%</td>
+          <td>-0.36%</td>
         </tr>
         <tr>
           <td class="tbl-headerRight">Section 2</td>
@@ -136,6 +138,7 @@
           <td>$2.38</td>
           <td>-0.01</td>
           <td>-1.36%</td>
+          <td>-0.36%</td>
         </tr>
         <tr>
           <td class="tbl-headerRight">Section 3</td>
@@ -143,6 +146,7 @@
           <td>$3.22</td>
           <td>+0.01</td>
           <td>+1.36%</td>
+          <td>-0.36%</td>
         </tr>
         <tr>
           <td class="tbl-headerRight">Section 4</td>
@@ -150,6 +154,7 @@
           <td>$1.02</td>
           <td>-1.01</td>
           <td>+2.36%</td>
+          <td>-0.36%</td>
         </tr>
         <tr>
           <td class="tbl-headerRight">Section 5</td>
@@ -157,23 +162,30 @@
           <td>$1.02</td>
           <td>-1.01</td>
           <td>+2.36%</td>
+          <td>-0.36%</td>
         </tr>
         </tbody>
       </table>
     </div>
   </section>
 
-  <button>Train</button>
+  <button onclick="train()">Train</button>
   <button>Start predict</button>
   <button>Stop predict</button>
 
-  <script>
-    // '.tbl-content' consumed little space for vertical scrollbar, scrollbar width depend on browser/os/platfrom. Here calculate the scollbar width .
-    $(window).on("load resize ", function() {
-      var scrollWidth = $('.tbl-content').width() - $('.tbl-content table').width();
-      $('.tbl-header').css({'padding-right':scrollWidth});
-    }).resize();
-  </script>
+<!--  <script>-->
+<!--    // '.tbl-content' consumed little space for vertical scrollbar, scrollbar width depend on browser/os/platfrom. Here calculate the scollbar width .-->
+<!--    $(window).on("load resize ", function() {-->
+<!--      var scrollWidth = $('.tbl-content').width() - $('.tbl-content table').width();-->
+<!--      $('.tbl-header').css({'padding-right':scrollWidth});-->
+<!--    }).resize();-->
+<!--  </script>-->
+
+<script>
+  function train() {
+    socket.emit('train', "msg");
+  }
+</script>
 
 </body>
 </html>
