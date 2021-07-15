@@ -1,14 +1,14 @@
 const express = require('express');
 const app = express();
 const server = require('http').createServer(app);
-const io = require("socket.io")(server);
+// const io = require("socket.io")(server);
+global.io = require('socket.io')(server);
 const port = 3000;
+
 
 //------------ kafka------------
 const kafka = require('./Controller/kafkaProduce');
 
-//-----------redis--------------
-const redis = require('./model/RedisForArielReciver');
 
 //-----------bigML--------------
 const bigML = require('./bigMLController');
@@ -24,6 +24,7 @@ app.use(express.static("public"));
 
 const dash = require("./routes/dashBoard");
 app.use("/dashboard", dash);
+
 
 
 app.get('/', (req, res) => {
