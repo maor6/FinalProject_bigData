@@ -83,9 +83,13 @@ const Db = {
             if (updatedCarsNum < 0) updatedCarsNum = 0;
             redisClient.set('NumberOfCars', updatedCarsNum, function (err, reply2) {
                 console.log("number of Cars: " + updatedCarsNum);
+                // redisClient.publish("message", updatedCarsNum, function () {  // send message that update the dashboard
+                // });
             });
 
-            redisClient.publish("message", JSON.stringify(event), function () {  // send message that update the dashboard
+            // redisClient.publish("message", JSON.stringify(event), function () {  // send message that update the dashboard
+            // });
+            redisClient.publish("message", updatedCarsNum, function () {  // send message that update the dashboard
             });
         });
     }

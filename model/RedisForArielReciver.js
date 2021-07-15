@@ -5,8 +5,6 @@ const redisClient = redis.createClient();
 const server = require('http').createServer(app);
 
 
-redisClient.subscribe('message'); 
-
 app.get('/', (req, res) => res.send('Hello World!'))
 
 // catch 404 and forward to error handler
@@ -26,25 +24,24 @@ app.use(function(err, req, res, next) {
 });
 
 
-redisClient.on("message", function (channel, msg) {
-    let data = JSON.parse(msg);
-    // do things with the data
-    // data.variable1 = 3;
-    // data.variable2 = "hello";
-    let number = 0;
-    redisClient.get('NumberOfCars', (err, reply) => {
-        number = reply;
-    });
-
-    // TODO with WS render the page to update the number of cars
-});
-
-
 redisClient.on('connect', function() {
     console.log('Receiver connected to Redis');
+    redisClient.subscribe('message');
 });
+
+
+const getRedisData = {
+    getNumOfCars: function (send) {
+        redisClient.get('NumberOfCars', (err, reply) => {
+             send(reply);
+        });
+    }
+}
 
 
 server.listen(6061, function() {
     console.log('receiver is running on port 6061');
 });
+
+module.exports.redisC = redisClient;
+module.exports.NumOfCars = getRedisData.getNumOfCars;
