@@ -2,6 +2,24 @@
 <html lang="en">
 
 <head>
+  <script>
+    function listOfCars()
+    {
+      var elem=document.getElementById("list-of-cars");
+      var hide = elem.style.display =="none";
+      if (hide) {
+        elem.style.display="table";
+      }
+      else {
+        elem.style.display="none";
+      }
+    }
+  </script>
+  <style>
+    .hide{
+      display:none;
+    }
+  </style>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
@@ -396,33 +414,6 @@
                       <i class="material-icons options-icon ml-2">more_vert</i>
                     </div>
                   </div>
-                  <div class="d-block d-sm-flex justify-content-between align-items-center">
-                    <h5 class="card-sub-title mb-2 mb-sm-0">Sales performance revenue based by country</h5>
-                    <div class="menu-button-container">
-                      <button
-                        class="mdc-button mdc-menu-button mdc-button--raised button-box-shadow tx-12 text-dark bg-white font-weight-light">
-                        Last 7 days
-                        <i class="material-icons">arrow_drop_down</i>
-                      </button>
-                      <div class="mdc-menu mdc-menu-surface" tabindex="-1">
-                        <ul class="mdc-list" role="menu" aria-hidden="true" aria-orientation="vertical">
-                          <li class="mdc-list-item" role="menuitem">
-                            <h6 class="item-subject font-weight-normal">Back</h6>
-                          </li>
-                          <li class="mdc-list-item" role="menuitem">
-                            <h6 class="item-subject font-weight-normal">Forward</h6>
-                          </li>
-                          <li class="mdc-list-item" role="menuitem">
-                            <h6 class="item-subject font-weight-normal">Reload</h6>
-                          </li>
-                          <li class="mdc-list-divider"></li>
-                          <li class="mdc-list-item" role="menuitem">
-                            <h6 class="item-subject font-weight-normal">Save As..</h6>
-                          </li>
-                        </ul>
-                      </div>
-                    </div>
-                  </div>
                   <div class="mdc-layout-grid__inner mt-2">
                     <div
                       class="mdc-layout-grid__cell mdc-layout-grid__cell--span-6 mdc-layout-grid__cell--span-8-tablet">
@@ -430,44 +421,51 @@
                         <table class="table dashboard-table">
                           <tbody>
                             <tr>
-                              <td>
-                                <span class="flag-icon-container"><i
-                                    class="flag-icon flag-icon-us mr-2"></i></span>United States
-                              </td>
+                              <td>Section 1</td>
                               <td>$1,671.10</td>
-                              <td class=" font-weight-medium"> 39% </td>
+                            <td class=" font-weight-medium">
+                              <button class="button" onclick="listOfCars()">Show list cars</button>
+                            </td>
                             </tr>
                             <tr>
-                              <td> <span class="flag-icon-container"><i
-                                    class="flag-icon flag-icon-ph mr-2"></i></span>Philippines </td>
+                              <td>Section 2</td>
                               <td>$1,064.75</td>
-                              <td class=" font-weight-medium"> 30% </td>
+                              <td class=" font-weight-medium"> 
+                                <button class="button" onclick="listOfCars()">Show list cars</button>
+                              </td>
                             </tr>
                             <tr>
-                              <td> <span class="flag-icon-container"><i
-                                    class="flag-icon flag-icon-gb mr-2"></i></span>United Kingdom</td>
+                              <td>Section 3</td>
                               <td>$1,055.98</td>
-                              <td class=" font-weight-medium"> 45% </td>
+                              <td class=" font-weight-medium"> 
+                                <button class="button" onclick="listOfCars()">Show list cars</button>
+                              </td>
                             </tr>
                             <tr>
-                              <td> <span class="flag-icon-container"><i
-                                    class="flag-icon flag-icon-ca mr-2"></i></span>Canada</td>
+                              <td>Section 4</td>
                               <td>$1,045.49</td>
-                              <td class=" font-weight-medium"> 80% </td>
+                              <td class=" font-weight-medium"> 
+                                <button class="button" onclick="listOfCars()">Show list cars</button>
+                              </td>
                             </tr>
                             <tr>
-                              <td> <span class="flag-icon-container"><i
-                                    class="flag-icon flag-icon-fr mr-2"></i></span>France</td>
+                              <td>Section 5</td>
                               <td>$2,050.93</td>
-                              <td class=" font-weight-medium"> 10% </td>
-                            </tr>
+                              <td class=" font-weight-medium"> 
+                                <button class="button" onclick="listOfCars()">Show list cars</button>
+                              </td>                      
+                            </tr>   
                           </tbody>
                         </table>
                       </div>
                     </div>
                     <div
                       class="mdc-layout-grid__cell mdc-layout-grid__cell--span-6 mdc-layout-grid__cell--span-8-tablet">
-                      <div id="revenue-map" class="revenue-world-map"></div>
+                      <ol id='list-of-cars' class="hide">
+                        <li>Coffee</li>
+                        <li>Tea</li>
+                        <li>Milk</li>
+                      </ol>   
                     </div>
                   </div>
                 </div>
