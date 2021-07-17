@@ -61,7 +61,6 @@ async function  makeEvents (publish) {  // Simulator
             let event = {}; // create a new event and add to map
             event.date = randomDate(new Date(2021, 0, 1), new Date(), 0, 24);
             event.carNumber = uuid.v4();
-            //message.id = row.cells[0].getElementsByTagName('div')[0].id;
             event.carType = CarType[Math.floor(Math.random() * 3)];
             event.isSpecialDay = Math.random() < 0.15;  // TODO need to fix SpecialDay to get it right
             event.dayInWeek = DaysInWeek[event.date.getDay().toString()];

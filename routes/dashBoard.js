@@ -2,6 +2,7 @@ const router = require('express').Router();
 
 //-----------redis--------------
 const redis = require('./../model/RedisForArielReciver');
+const redisGet = require('./../model/RedisGet');
 
 
 router.use(function(req, res, next) {
@@ -25,10 +26,33 @@ router.route('/').get(((req, res) => {
 
 redis.redisC.on("message", function (channel, msg) {
     io.emit('new data', msg);
-    // redis.NumOfCars(send);
-    // io.emit('new data', redis.NumOfCars());
-    // TODO with WS render the page to update the number of cars
 });
 
+//------------ Socket.io ----------------
+io.on("connection", (socket) => {
+    console.log("new user connected on dashboard");
+    socket.on("carList", (msg) => {
+        redisGet.getRedisData.getSectionList(msg, sendToViewTheList);
+    });
+});
+
+function sendToViewTheList(data) {
+    // io.emit('updateList', data[Object.keys(data)]);
+    if (data) {
+        let arr = Object.keys(data);
+        let newArr = [];
+        arr.forEach((id) => {
+            let car = {};
+            let obj = JSON.parse(data[id]);
+            car.carNumber = obj.carNumber;
+            car.carType = obj.carType;
+            newArr.push(car);
+        });
+        io.emit('updateList', newArr);
+    }
+    else {
+        io.emit('updateList', []);
+    }
+}
 
 module.exports = router;
