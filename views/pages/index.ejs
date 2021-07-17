@@ -2,23 +2,10 @@
 <html lang="en">
 
 <head>
-  <script>
-    function listOfCars()
-    {
-      var elem=document.getElementById("list-of-cars");
-      var hide = elem.style.display =="none";
-      if (hide) {
-        elem.style.display="table";
-      }
-      else {
-        elem.style.display="none";
-      }
-    }
-  </script>
   <style>
-    .hide{
-      display:none;
-    }
+    /*.hide{*/
+    /*  display:none;*/
+    /*}*/
   </style>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -35,21 +22,29 @@
       socket.on('new data', function (msg) {  // when get data from the socket
         document.getElementById('totalCars').innerHTML=msg;
       });
+
+      socket.on('updateList', function (msg) {  // when get data from the socket
+        // document.getElementById('totalCars').innerHTML=msg;
+        loadCarTable(msg);
+        console.log(msg);
+        // { carNumber: "a0d52edf-5f9e-4d0a-a9e1-f592303a220d", carType: "van" }
+      });
     }
   </script>
 
+
   <!-- plugins:css -->
-  <link rel="stylesheet" href="./vendors/mdi/css/materialdesignicons.min.css">
-  <link rel="stylesheet" href="./vendors/css/vendor.bundle.base.css">
+  <link rel="stylesheet" href="/vendors/mdi/css/materialdesignicons.min.css">
+  <link rel="stylesheet" href="/vendors/css/vendor.bundle.base.css">
   <!-- endinject -->
   <!-- Plugin css for this page -->
-  <link rel="stylesheet" href="./vendors/flag-icon-css/css/flag-icon.min.css">
-  <link rel="stylesheet" href="./vendors/jvectormap/jquery-jvectormap.css">
+  <link rel="stylesheet" href="/vendors/flag-icon-css/css/flag-icon.min.css">
+  <link rel="stylesheet" href="/vendors/jvectormap/jquery-jvectormap.css">
   <!-- End plugin css for this page -->
   <!-- Layout styles -->
-  <link rel="stylesheet" href="./css/demo/style.css">
+  <link rel="stylesheet" href="/css/demo/style.css">
   <!-- End layout styles -->
-  <link rel="shortcut icon" href="./images/favicon.png" />
+  <link rel="shortcut icon" href="/images/favicon.png" />
 </head>
 
 <body onload="setWs()">
@@ -60,7 +55,7 @@
     <aside class="mdc-drawer mdc-drawer--dismissible mdc-drawer--open">
       <div class="mdc-drawer__header">
         <a href="index.html" class="brand-logo">
-          <img src="./images/logo.svg" alt="logo">
+          <img src="/images/logo.svg" alt="logo">
         </a>
       </div>
       <div class="mdc-drawer__content">
@@ -228,7 +223,7 @@
               <button class="mdc-button mdc-menu-button">
                 <span class="d-flex align-items-center">
                   <span class="figure">
-                    <img src="./images/faces/face1.jpg" alt="user" class="user">
+                    <img src="/images/faces/face1.jpg" alt="user" class="user">
                   </span>
                   <span class="user-name">Clyde Miles</span>
                 </span>
@@ -338,7 +333,7 @@
                 <ul class="mdc-list" role="menu" aria-hidden="true" aria-orientation="vertical">
                   <li class="mdc-list-item" role="menuitem">
                     <div class="item-thumbnail">
-                      <img src="./images/faces/face4.jpg" alt="user">
+                      <img src="/images/faces/face4.jpg" alt="user">
                     </div>
                     <div class="item-content d-flex align-items-start flex-column justify-content-center">
                       <h6 class="item-subject font-weight-normal">Mark send you a message</h6>
@@ -347,7 +342,7 @@
                   </li>
                   <li class="mdc-list-item" role="menuitem">
                     <div class="item-thumbnail">
-                      <img src="./images/faces/face2.jpg" alt="user">
+                      <img src="/images/faces/face2.jpg" alt="user">
                     </div>
                     <div class="item-content d-flex align-items-start flex-column justify-content-center">
                       <h6 class="item-subject font-weight-normal">Cregh send you a message</h6>
@@ -356,7 +351,7 @@
                   </li>
                   <li class="mdc-list-item" role="menuitem">
                     <div class="item-thumbnail">
-                      <img src="./images/faces/face3.jpg" alt="user">
+                      <img src="/images/faces/face3.jpg" alt="user">
                     </div>
                     <div class="item-content d-flex align-items-start flex-column justify-content-center">
                       <h6 class="item-subject font-weight-normal">Profile picture updated</h6>
@@ -424,35 +419,35 @@
                               <td>Section 1</td>
                               <td>$1,671.10</td>
                             <td class=" font-weight-medium">
-                              <button class="button" onclick="listOfCars()">Show list cars</button>
+                              <button class="button" onclick="listOfCars(1)">Show list cars</button>
                             </td>
                             </tr>
                             <tr>
                               <td>Section 2</td>
                               <td>$1,064.75</td>
                               <td class=" font-weight-medium"> 
-                                <button class="button" onclick="listOfCars()">Show list cars</button>
+                                <button class="button" onclick="listOfCars(2)">Show list cars</button>
                               </td>
                             </tr>
                             <tr>
                               <td>Section 3</td>
                               <td>$1,055.98</td>
                               <td class=" font-weight-medium"> 
-                                <button class="button" onclick="listOfCars()">Show list cars</button>
+                                <button class="button" onclick="listOfCars(3)">Show list cars</button>
                               </td>
                             </tr>
                             <tr>
                               <td>Section 4</td>
                               <td>$1,045.49</td>
                               <td class=" font-weight-medium"> 
-                                <button class="button" onclick="listOfCars()">Show list cars</button>
+                                <button class="button" onclick="listOfCars(4)">Show list cars</button>
                               </td>
                             </tr>
                             <tr>
                               <td>Section 5</td>
                               <td>$2,050.93</td>
                               <td class=" font-weight-medium"> 
-                                <button class="button" onclick="listOfCars()">Show list cars</button>
+                                <button class="button" onclick="listOfCars(5)">Show list cars</button>
                               </td>                      
                             </tr>   
                           </tbody>
@@ -461,11 +456,15 @@
                     </div>
                     <div
                       class="mdc-layout-grid__cell mdc-layout-grid__cell--span-6 mdc-layout-grid__cell--span-8-tablet">
-                      <ol id='list-of-cars' class="hide">
-                        <li>Coffee</li>
-                        <li>Tea</li>
-                        <li>Milk</li>
-                      </ol>   
+                      <table id='list-of-cars' class="hide" style="width:100%">
+                        <thead>
+                          <tr>
+                            <th>Car Number</th>
+                            <th>Car Type</th>
+                          </tr>
+                        </thead>
+                        <tbody id="tableCars" class="carList"></tbody>
+                      </table>
                     </div>
                   </div>
                 </div>
@@ -639,21 +638,45 @@
 
 
   <!-- plugins:js -->
-  <script src="./vendors/js/vendor.bundle.base.js"></script>
+  <script src="/vendors/js/vendor.bundle.base.js"></script>
   <!-- endinject -->
   <!-- Plugin js for this page-->
-  <script src="./vendors/chartjs/Chart.min.js"></script>
-  <script src="./vendors/jvectormap/jquery-jvectormap.min.js"></script>
-  <script src="./vendors/jvectormap/jquery-jvectormap-world-mill-en.js"></script>
+  <script src="/vendors/chartjs/Chart.min.js"></script>
+  <script src="/vendors/jvectormap/jquery-jvectormap.min.js"></script>
+  <script src="/vendors/jvectormap/jquery-jvectormap-world-mill-en.js"></script>
   <!-- End plugin js for this page-->
   <!-- inject:js -->
-  <script src="./js/material.js"></script>
-  <script src="./js/misc.js"></script>
+  <script src="/js/material.js"></script>
+  <script src="/js/misc.js"></script>
   <!-- endinject -->
   <!-- Custom js for this page-->
-  <script src="./js/dashboard.js"></script>
-  <!-- End custom js for this page-->
+  <script src="/js/dashboard.js"></script>
 
+  <script>
+    function listOfCars(sectionNum)
+    {
+      socket.emit('carList', sectionNum);
+      var elem=document.getElementById("list-of-cars");
+      // var hide = elem.style.display ==="none";
+      // if (hide) {
+      //   elem.style.display="table";
+      // }
+      // else {
+      //   elem.style.display="none";
+      // }
+    }
+  </script>
+  <script>
+    function loadCarTable(carList) {
+      const tableBody = document.getElementById('tableCars');
+      let dataHtml = '';
+      for(let car of carList) {
+        dataHtml += `<tr><td>${car.carNumber}</td><td padding="8px">${car.carType}</td></tr>`;
+      }
+      tableBody.innerHTML = dataHtml;
+    }
+  </script>
+  <!-- End custom js for this page-->
   <!--
   <input type="button" style="position: absolute;top:350px;left:350px" value="Send Chat" onclick="alert('pressed'); socket.emit('chat message', 'שלום')"/>
  -->
