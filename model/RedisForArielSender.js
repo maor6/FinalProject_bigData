@@ -14,10 +14,10 @@ app.get('/test', function (req, res) {
         console.log(reply);
     });
 
+
     //Store and get Hash i.e. object( as keyvalue pairs)
     redisClient.hmset('Sections',"one", 'Sorek',"two", 'Nesharim',"three", 'BenShemen', "four",'nashonim',"five", 'kesem');
     redisClient.hgetall('Sections', function (err, object) {
-        console.log(object);
     });
     /*
     also ok:
@@ -38,8 +38,8 @@ client.lrange('frameworks', 0, -1, function(err, reply) {
     console.log(reply); // ['angularjs', 'backbone']
 }); */
 
-    redisClient.publish("message", "{\"message\":\"Hello from Redis\"}", function () {
-    });
+    // redisClient.publish("message", "{\"message\":\"Hello from Redis\"}", function () {
+    // });
 
     res.send('תקשרתי עם רדיס....');
 });
@@ -54,6 +54,7 @@ app.use(function (req, res, next) {
 function initialize() {
     redisClient.set('NumberOfCars', 0, function (err, reply) {
     });
+
 }
 
 redisClient.on('connect', function () {  // when we connect to redis
@@ -65,12 +66,11 @@ redisClient.on('connect', function () {  // when we connect to redis
 const Db = {
     updateNumCars: function (event) {
         redisClient.get('NumberOfCars', (err, reply) => {
-            let updatedCarsNum = reply;
             if (err) throw err;
+            let updatedCarsNum = reply;
             if (event.eventType === "enter road") {
                 updatedCarsNum++;
             }
-
             else if(event.eventType === "exit road") {
                 updatedCarsNum--;
             }
@@ -80,11 +80,10 @@ const Db = {
             else {
                 redisClient.del(event.section, event._id);
             }
+
             if (updatedCarsNum < 0) updatedCarsNum = 0;
             redisClient.set('NumberOfCars', updatedCarsNum, function (err, reply2) {
                 console.log("number of Cars: " + updatedCarsNum);
-                // redisClient.publish("message", updatedCarsNum, function () {  // send message that update the dashboard
-                // });
             });
 
             // redisClient.publish("message", JSON.stringify(event), function () {  // send message that update the dashboard

@@ -30,18 +30,9 @@ redisClient.on('connect', function() {
 });
 
 
-const getRedisData = {
-    getNumOfCars: function (send) {
-        redisClient.get('NumberOfCars', (err, reply) => {
-             send(reply);
-        });
-    }
-}
-
-
 server.listen(6061, function() {
     console.log('receiver is running on port 6061');
 });
 
 module.exports.redisC = redisClient;
-module.exports.NumOfCars = getRedisData.getNumOfCars;
+// module.exports.getRedisData = getRedisData;
