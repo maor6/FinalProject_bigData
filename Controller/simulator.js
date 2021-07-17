@@ -38,22 +38,22 @@ async function  makeEvents (publish) {  // Simulator
     var map = {};
 
     while (true) {
-        const key = Math.floor(Math.random() * 5);
+        const key = Math.floor(Math.random() * 100);
         if(key in map) {
             const numOfSection = map[key].section;  // the current section of the car
             if(numOfSection === 5) {  // Car is in the last section and exit the road
-                await exitRoad(map, key, publish);
+                await (exitRoad)(map, key, publish);
             }
             else {
                 if(Math.random() < 0.6) {  // Probability that car continue to next section
                     map[key].eventType = Events[3];
-                    await publish(map[key]);
+                    await (publish)(map[key]);
                     map[key].eventType = Events[1];
                     map[key].section = map[key].section + 1; //enter to the next section
-                    await publish(map[key]);
+                    await (publish)(map[key]);
                 }
                 else {  // the car want to exit the road
-                    await exitRoad(map, key, publish);
+                    await (exitRoad)(map, key, publish);
                 }
             }
         }
@@ -69,20 +69,20 @@ async function  makeEvents (publish) {  // Simulator
             event.section = Math.floor(Math.random() * 5) + 1;
 
             map[key] = event;  // add the event to the map
-            await publish(map[key]);
+            await (publish)(map[key]);
             map[key].eventType = Events[1];  // change that the car enter also to some section
-            await publish(map[key]);
+            await (publish)(map[key]);
         }
 
-        await sleep(2000);
+        await (sleep)(2000);
     }
 }
 
 async function exitRoad(map, key, publish) {  // help function that handle when car is exit the road
     map[key].eventType = Events[3];
-    await publish(map[key]);
+    await (publish)(map[key]);
     map[key].eventType = Events[2];
-    await publish(map[key]);
+    await (publish)(map[key]);
     delete map[key];
 }
 
