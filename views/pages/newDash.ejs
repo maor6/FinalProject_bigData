@@ -3,11 +3,175 @@
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
-    <link rel="stylesheet/less" type="text/css" href="dashStyle.scss" />
-    <script src="dashJS.js" type="text/javascript"></script>
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+        body {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-flow: column wrap;
+            background: #1f1f1f;
+            color: white;
+            font-family: 'Lato';
+            -webkit-font-smoothing: antialiased;
+            text-rendering: optimizeLegibility;
+        }
+        ul {
+            margin: 0;
+            padding: 0;
+            list-style-type: none;
+            max-width: 800px;
+            width: 100%;
+            margin: 0 auto;
+            padding: 15px;
+            text-align: center;
+            overflow-x: hidden;
+        }
+        .card {
+            float: left;
+            position: relative;
+            width: calc(100% * .3333 - 30px + .3333 * 30px);
+            height: 340px;
+            margin: 0 30px 30px 0;
+            perspective: 1000px;
+        }
+        .card:first-child .card__front {
+            background: #5271c2;
+        }
+        .card:first-child .card__num {
+            text-shadow: 1px 1px rgba(52, 78, 147, -0.8) ,2px 2px rgba(82, 113, 194, 1) ,3px 3px rgba(97, 130, 217, 2.8) ,4px 4px rgba(106, 141, 231, 4.6) ,5px 5px rgba(112, 148, 241, 6.4) ,6px 6px rgba(116, 153, 247, 8.2) ,7px 7px rgba(119, 156, 252, 10) ,8px 8px rgba(122, 159, 255, 11.8) ,9px 9px rgba(124, 161, 255, 13.6) ,10px 10px rgba(126, 163, 255, 15.4) ,11px 11px rgba(127, 165, 255, 17.2) ,12px 12px rgba(128, 166, 255, 19) ,13px 13px rgba(129, 167, 255, 20.8) ,14px 14px rgba(130, 168, 255, 22.6) ,15px 15px rgba(131, 169, 255, 24.4) ,16px 16px rgba(131, 170, 255, 26.2) ,17px 17px rgba(132, 171, 255, 28) ,18px 18px rgba(133, 171, 255, 29.8) ,19px 19px rgba(133, 172, 255, 31.6) ,20px 20px rgba(133, 172, 255, 33.4) ,21px 21px rgba(134, 173, 255, 35.2) ,22px 22px rgba(134, 173, 255, 37) ,23px 23px rgba(134, 173, 255, 38.8) ,24px 24px rgba(135, 174, 255, 40.6) ,25px 25px rgba(135, 174, 255, 42.4) ,26px 26px rgba(135, 174, 255, 44.2) ,27px 27px rgba(136, 175, 255, 46) ,28px 28px rgba(136, 175, 255, 47.8) ,29px 29px rgba(136, 175, 255, 49.6) ,30px 30px rgba(136, 175, 255, 51.4) ,31px 31px rgba(136, 176, 255, 53.2) ,32px 32px rgba(137, 176, 255, 55) ,33px 33px rgba(137, 176, 255, 56.8) ,34px 34px rgba(137, 176, 255, 58.6) ,35px 35px rgba(137, 176, 255, 60.4) ,36px 36px rgba(137, 177, 255, 62.2) ,37px 37px rgba(137, 177, 255, 64) ,38px 38px rgba(137, 177, 255, 65.8) ,39px 39px rgba(137, 177, 255, 67.6) ,40px 40px rgba(138, 177, 255, 69.4) ,41px 41px rgba(138, 177, 255, 71.2) ,42px 42px rgba(138, 177, 255, 73) ,43px 43px rgba(138, 177, 255, 74.8) ,44px 44px rgba(138, 178, 255, 76.6) ,45px 45px rgba(138, 178, 255, 78.4) ,46px 46px rgba(138, 178, 255, 80.2) ,47px 47px rgba(138, 178, 255, 82) ,48px 48px rgba(138, 178, 255, 83.8) ,49px 49px rgba(138, 178, 255, 85.6) ,50px 50px rgba(138, 178, 255, 87.4) ,51px 51px rgba(139, 178, 255, 89.2) ,52px 52px rgba(139, 178, 255, 91) ,53px 53px rgba(139, 178, 255, 92.8) ,54px 54px rgba(139, 178, 255, 94.6) ,55px 55px rgba(139, 178, 255, 96.4) ,56px 56px rgba(139, 178, 255, 98.2) ,57px 57px rgba(139, 179, 255, 100) ,58px 58px rgba(139, 179, 255, 101.8) ,59px 59px rgba(139, 179, 255, 103.6) ,60px 60px rgba(139, 179, 255, 105.4) ,61px 61px rgba(139, 179, 255, 107.2) ,62px 62px rgba(139, 179, 255, 109) ,63px 63px rgba(139, 179, 255, 110.8) ,64px 64px rgba(139, 179, 255, 112.6) ,65px 65px rgba(139, 179, 255, 114.4) ,66px 66px rgba(139, 179, 255, 116.2) ,67px 67px rgba(139, 179, 255, 118) ,68px 68px rgba(139, 179, 255, 119.8) ,69px 69px rgba(139, 179, 255, 121.6) ,70px 70px rgba(139, 179, 255, 123.4) ,71px 71px rgba(139, 179, 255, 125.2) ,72px 72px rgba(140, 179, 255, 127) ,73px 73px rgba(140, 179, 255, 128.8) ,74px 74px rgba(140, 179, 255, 130.6) ,75px 75px rgba(140, 179, 255, 132.4) ,76px 76px rgba(140, 179, 255, 134.2) ,77px 77px rgba(140, 179, 255, 136) ,78px 78px rgba(140, 180, 255, 137.8) ,79px 79px rgba(140, 180, 255, 139.6) ,80px 80px rgba(140, 180, 255, 141.4) ,81px 81px rgba(140, 180, 255, 143.2) ,82px 82px rgba(140, 180, 255, 145) ,83px 83px rgba(140, 180, 255, 146.8) ,84px 84px rgba(140, 180, 255, 148.6) ,85px 85px rgba(140, 180, 255, 150.4) ,86px 86px rgba(140, 180, 255, 152.2) ,87px 87px rgba(140, 180, 255, 154) ,88px 88px rgba(140, 180, 255, 155.8) ,89px 89px rgba(140, 180, 255, 157.6) ,90px 90px rgba(140, 180, 255, 159.4) ,91px 91px rgba(140, 180, 255, 161.2) ,92px 92px rgba(140, 180, 255, 163) ,93px 93px rgba(140, 180, 255, 164.8) ,94px 94px rgba(140, 180, 255, 166.6) ,95px 95px rgba(140, 180, 255, 168.4) ,96px 96px rgba(140, 180, 255, 170.2) ,97px 97px rgba(140, 180, 255, 172) ,98px 98px rgba(140, 180, 255, 173.8) ,99px 99px rgba(140, 180, 255, 175.6) ,100px 100px rgba(140, 180, 255, 177.4);
+        }
+        .card:nth-child(2) .card__front {
+            background: #35a541;
+        }
+        .card:nth-child(2) .card__num {
+            text-shadow: 1px 1px rgba(34, 107, 42, -0.8) ,2px 2px rgba(53, 165, 65, 1) ,3px 3px rgba(62, 194, 76, 2.8) ,4px 4px rgba(68, 211, 83, 4.6) ,5px 5px rgba(72, 223, 88, 6.4) ,6px 6px rgba(74, 231, 91, 8.2) ,7px 7px rgba(76, 237, 94, 10) ,8px 8px rgba(78, 242, 95, 11.8) ,9px 9px rgba(79, 246, 97, 13.6) ,10px 10px rgba(80, 249, 98, 15.4) ,11px 11px rgba(81, 252, 99, 17.2) ,12px 12px rgba(82, 254, 100, 19) ,13px 13px rgba(82, 255, 101, 20.8) ,14px 14px rgba(83, 255, 101, 22.6) ,15px 15px rgba(83, 255, 102, 24.4) ,16px 16px rgba(84, 255, 103, 26.2) ,17px 17px rgba(84, 255, 103, 28) ,18px 18px rgba(84, 255, 103, 29.8) ,19px 19px rgba(85, 255, 104, 31.6) ,20px 20px rgba(85, 255, 104, 33.4) ,21px 21px rgba(85, 255, 104, 35.2) ,22px 22px rgba(85, 255, 105, 37) ,23px 23px rgba(86, 255, 105, 38.8) ,24px 24px rgba(86, 255, 105, 40.6) ,25px 25px rgba(86, 255, 105, 42.4) ,26px 26px rgba(86, 255, 106, 44.2) ,27px 27px rgba(86, 255, 106, 46) ,28px 28px rgba(86, 255, 106, 47.8) ,29px 29px rgba(86, 255, 106, 49.6) ,30px 30px rgba(87, 255, 106, 51.4) ,31px 31px rgba(87, 255, 106, 53.2) ,32px 32px rgba(87, 255, 106, 55) ,33px 33px rgba(87, 255, 107, 56.8) ,34px 34px rgba(87, 255, 107, 58.6) ,35px 35px rgba(87, 255, 107, 60.4) ,36px 36px rgba(87, 255, 107, 62.2) ,37px 37px rgba(87, 255, 107, 64) ,38px 38px rgba(87, 255, 107, 65.8) ,39px 39px rgba(87, 255, 107, 67.6) ,40px 40px rgba(87, 255, 107, 69.4) ,41px 41px rgba(88, 255, 107, 71.2) ,42px 42px rgba(88, 255, 107, 73) ,43px 43px rgba(88, 255, 108, 74.8) ,44px 44px rgba(88, 255, 108, 76.6) ,45px 45px rgba(88, 255, 108, 78.4) ,46px 46px rgba(88, 255, 108, 80.2) ,47px 47px rgba(88, 255, 108, 82) ,48px 48px rgba(88, 255, 108, 83.8) ,49px 49px rgba(88, 255, 108, 85.6) ,50px 50px rgba(88, 255, 108, 87.4) ,51px 51px rgba(88, 255, 108, 89.2) ,52px 52px rgba(88, 255, 108, 91) ,53px 53px rgba(88, 255, 108, 92.8) ,54px 54px rgba(88, 255, 108, 94.6) ,55px 55px rgba(88, 255, 108, 96.4) ,56px 56px rgba(88, 255, 108, 98.2) ,57px 57px rgba(88, 255, 108, 100) ,58px 58px rgba(88, 255, 108, 101.8) ,59px 59px rgba(88, 255, 108, 103.6) ,60px 60px rgba(88, 255, 108, 105.4) ,61px 61px rgba(88, 255, 108, 107.2) ,62px 62px rgba(88, 255, 108, 109) ,63px 63px rgba(88, 255, 108, 110.8) ,64px 64px rgba(88, 255, 109, 112.6) ,65px 65px rgba(89, 255, 109, 114.4) ,66px 66px rgba(89, 255, 109, 116.2) ,67px 67px rgba(89, 255, 109, 118) ,68px 68px rgba(89, 255, 109, 119.8) ,69px 69px rgba(89, 255, 109, 121.6) ,70px 70px rgba(89, 255, 109, 123.4) ,71px 71px rgba(89, 255, 109, 125.2) ,72px 72px rgba(89, 255, 109, 127) ,73px 73px rgba(89, 255, 109, 128.8) ,74px 74px rgba(89, 255, 109, 130.6) ,75px 75px rgba(89, 255, 109, 132.4) ,76px 76px rgba(89, 255, 109, 134.2) ,77px 77px rgba(89, 255, 109, 136) ,78px 78px rgba(89, 255, 109, 137.8) ,79px 79px rgba(89, 255, 109, 139.6) ,80px 80px rgba(89, 255, 109, 141.4) ,81px 81px rgba(89, 255, 109, 143.2) ,82px 82px rgba(89, 255, 109, 145) ,83px 83px rgba(89, 255, 109, 146.8) ,84px 84px rgba(89, 255, 109, 148.6) ,85px 85px rgba(89, 255, 109, 150.4) ,86px 86px rgba(89, 255, 109, 152.2) ,87px 87px rgba(89, 255, 109, 154) ,88px 88px rgba(89, 255, 109, 155.8) ,89px 89px rgba(89, 255, 109, 157.6) ,90px 90px rgba(89, 255, 109, 159.4) ,91px 91px rgba(89, 255, 109, 161.2) ,92px 92px rgba(89, 255, 109, 163) ,93px 93px rgba(89, 255, 109, 164.8) ,94px 94px rgba(89, 255, 109, 166.6) ,95px 95px rgba(89, 255, 109, 168.4) ,96px 96px rgba(89, 255, 109, 170.2) ,97px 97px rgba(89, 255, 109, 172) ,98px 98px rgba(89, 255, 109, 173.8) ,99px 99px rgba(89, 255, 109, 175.6) ,100px 100px rgba(89, 255, 109, 177.4);
+        }
+        .card:nth-child(3) {
+            margin-right: 0;
+        }
+        .card:nth-child(3) .card__front {
+            background: #bdb235;
+        }
+        .card:nth-child(3) .card__num {
+            text-shadow: 1px 1px rgba(129, 122, 36, -0.8) ,2px 2px rgba(189, 178, 53, 1) ,3px 3px rgba(219, 206, 61, 2.8) ,4px 4px rgba(237, 223, 66, 4.6) ,5px 5px rgba(249, 234, 70, 6.4) ,6px 6px rgba(255, 242, 72, 8.2) ,7px 7px rgba(255, 248, 74, 10) ,8px 8px rgba(255, 253, 75, 11.8) ,9px 9px rgba(255, 255, 76, 13.6) ,10px 10px rgba(255, 255, 77, 15.4) ,11px 11px rgba(255, 255, 78, 17.2) ,12px 12px rgba(255, 255, 79, 19) ,13px 13px rgba(255, 255, 79, 20.8) ,14px 14px rgba(255, 255, 80, 22.6) ,15px 15px rgba(255, 255, 80, 24.4) ,16px 16px rgba(255, 255, 81, 26.2) ,17px 17px rgba(255, 255, 81, 28) ,18px 18px rgba(255, 255, 81, 29.8) ,19px 19px rgba(255, 255, 81, 31.6) ,20px 20px rgba(255, 255, 82, 33.4) ,21px 21px rgba(255, 255, 82, 35.2) ,22px 22px rgba(255, 255, 82, 37) ,23px 23px rgba(255, 255, 82, 38.8) ,24px 24px rgba(255, 255, 82, 40.6) ,25px 25px rgba(255, 255, 83, 42.4) ,26px 26px rgba(255, 255, 83, 44.2) ,27px 27px rgba(255, 255, 83, 46) ,28px 28px rgba(255, 255, 83, 47.8) ,29px 29px rgba(255, 255, 83, 49.6) ,30px 30px rgba(255, 255, 83, 51.4) ,31px 31px rgba(255, 255, 83, 53.2) ,32px 32px rgba(255, 255, 83, 55) ,33px 33px rgba(255, 255, 84, 56.8) ,34px 34px rgba(255, 255, 84, 58.6) ,35px 35px rgba(255, 255, 84, 60.4) ,36px 36px rgba(255, 255, 84, 62.2) ,37px 37px rgba(255, 255, 84, 64) ,38px 38px rgba(255, 255, 84, 65.8) ,39px 39px rgba(255, 255, 84, 67.6) ,40px 40px rgba(255, 255, 84, 69.4) ,41px 41px rgba(255, 255, 84, 71.2) ,42px 42px rgba(255, 255, 84, 73) ,43px 43px rgba(255, 255, 84, 74.8) ,44px 44px rgba(255, 255, 84, 76.6) ,45px 45px rgba(255, 255, 84, 78.4) ,46px 46px rgba(255, 255, 84, 80.2) ,47px 47px rgba(255, 255, 84, 82) ,48px 48px rgba(255, 255, 84, 83.8) ,49px 49px rgba(255, 255, 84, 85.6) ,50px 50px rgba(255, 255, 85, 87.4) ,51px 51px rgba(255, 255, 85, 89.2) ,52px 52px rgba(255, 255, 85, 91) ,53px 53px rgba(255, 255, 85, 92.8) ,54px 54px rgba(255, 255, 85, 94.6) ,55px 55px rgba(255, 255, 85, 96.4) ,56px 56px rgba(255, 255, 85, 98.2) ,57px 57px rgba(255, 255, 85, 100) ,58px 58px rgba(255, 255, 85, 101.8) ,59px 59px rgba(255, 255, 85, 103.6) ,60px 60px rgba(255, 255, 85, 105.4) ,61px 61px rgba(255, 255, 85, 107.2) ,62px 62px rgba(255, 255, 85, 109) ,63px 63px rgba(255, 255, 85, 110.8) ,64px 64px rgba(255, 255, 85, 112.6) ,65px 65px rgba(255, 255, 85, 114.4) ,66px 66px rgba(255, 255, 85, 116.2) ,67px 67px rgba(255, 255, 85, 118) ,68px 68px rgba(255, 255, 85, 119.8) ,69px 69px rgba(255, 255, 85, 121.6) ,70px 70px rgba(255, 255, 85, 123.4) ,71px 71px rgba(255, 255, 85, 125.2) ,72px 72px rgba(255, 255, 85, 127) ,73px 73px rgba(255, 255, 85, 128.8) ,74px 74px rgba(255, 255, 85, 130.6) ,75px 75px rgba(255, 255, 85, 132.4) ,76px 76px rgba(255, 255, 85, 134.2) ,77px 77px rgba(255, 255, 85, 136) ,78px 78px rgba(255, 255, 85, 137.8) ,79px 79px rgba(255, 255, 85, 139.6) ,80px 80px rgba(255, 255, 85, 141.4) ,81px 81px rgba(255, 255, 85, 143.2) ,82px 82px rgba(255, 255, 85, 145) ,83px 83px rgba(255, 255, 85, 146.8) ,84px 84px rgba(255, 255, 85, 148.6) ,85px 85px rgba(255, 255, 85, 150.4) ,86px 86px rgba(255, 255, 85, 152.2) ,87px 87px rgba(255, 255, 85, 154) ,88px 88px rgba(255, 255, 85, 155.8) ,89px 89px rgba(255, 255, 85, 157.6) ,90px 90px rgba(255, 255, 85, 159.4) ,91px 91px rgba(255, 255, 85, 161.2) ,92px 92px rgba(255, 255, 85, 163) ,93px 93px rgba(255, 255, 85, 164.8) ,94px 94px rgba(255, 255, 85, 166.6) ,95px 95px rgba(255, 255, 85, 168.4) ,96px 96px rgba(255, 255, 85, 170.2) ,97px 97px rgba(255, 255, 85, 172) ,98px 98px rgba(255, 255, 85, 173.8) ,99px 99px rgba(255, 255, 86, 175.6) ,100px 100px rgba(255, 255, 86, 177.4);
+        }
+        .card:nth-child(4) .card__front {
+            background: #db6623;
+        }
+        .card:nth-child(4) .card__num {
+            text-shadow: 1px 1px rgba(153, 71, 24, -0.8) ,2px 2px rgba(219, 102, 35, 1) ,3px 3px rgba(252, 117, 40, 2.8) ,4px 4px rgba(255, 127, 43, 4.6) ,5px 5px rgba(255, 133, 46, 6.4) ,6px 6px rgba(255, 137, 47, 8.2) ,7px 7px rgba(255, 140, 48, 10) ,8px 8px rgba(255, 143, 49, 11.8) ,9px 9px rgba(255, 145, 50, 13.6) ,10px 10px rgba(255, 147, 50, 15.4) ,11px 11px rgba(255, 148, 51, 17.2) ,12px 12px rgba(255, 149, 51, 19) ,13px 13px rgba(255, 150, 52, 20.8) ,14px 14px rgba(255, 151, 52, 22.6) ,15px 15px rgba(255, 152, 52, 24.4) ,16px 16px rgba(255, 153, 52, 26.2) ,17px 17px rgba(255, 153, 53, 28) ,18px 18px rgba(255, 154, 53, 29.8) ,19px 19px rgba(255, 154, 53, 31.6) ,20px 20px rgba(255, 155, 53, 33.4) ,21px 21px rgba(255, 155, 53, 35.2) ,22px 22px rgba(255, 155, 53, 37) ,23px 23px rgba(255, 156, 53, 38.8) ,24px 24px rgba(255, 156, 54, 40.6) ,25px 25px rgba(255, 156, 54, 42.4) ,26px 26px rgba(255, 157, 54, 44.2) ,27px 27px rgba(255, 157, 54, 46) ,28px 28px rgba(255, 157, 54, 47.8) ,29px 29px rgba(255, 157, 54, 49.6) ,30px 30px rgba(255, 157, 54, 51.4) ,31px 31px rgba(255, 158, 54, 53.2) ,32px 32px rgba(255, 158, 54, 55) ,33px 33px rgba(255, 158, 54, 56.8) ,34px 34px rgba(255, 158, 54, 58.6) ,35px 35px rgba(255, 158, 54, 60.4) ,36px 36px rgba(255, 158, 54, 62.2) ,37px 37px rgba(255, 159, 54, 64) ,38px 38px rgba(255, 159, 54, 65.8) ,39px 39px rgba(255, 159, 55, 67.6) ,40px 40px rgba(255, 159, 55, 69.4) ,41px 41px rgba(255, 159, 55, 71.2) ,42px 42px rgba(255, 159, 55, 73) ,43px 43px rgba(255, 159, 55, 74.8) ,44px 44px rgba(255, 159, 55, 76.6) ,45px 45px rgba(255, 159, 55, 78.4) ,46px 46px rgba(255, 160, 55, 80.2) ,47px 47px rgba(255, 160, 55, 82) ,48px 48px rgba(255, 160, 55, 83.8) ,49px 49px rgba(255, 160, 55, 85.6) ,50px 50px rgba(255, 160, 55, 87.4) ,51px 51px rgba(255, 160, 55, 89.2) ,52px 52px rgba(255, 160, 55, 91) ,53px 53px rgba(255, 160, 55, 92.8) ,54px 54px rgba(255, 160, 55, 94.6) ,55px 55px rgba(255, 160, 55, 96.4) ,56px 56px rgba(255, 160, 55, 98.2) ,57px 57px rgba(255, 160, 55, 100) ,58px 58px rgba(255, 160, 55, 101.8) ,59px 59px rgba(255, 160, 55, 103.6) ,60px 60px rgba(255, 160, 55, 105.4) ,61px 61px rgba(255, 160, 55, 107.2) ,62px 62px rgba(255, 161, 55, 109) ,63px 63px rgba(255, 161, 55, 110.8) ,64px 64px rgba(255, 161, 55, 112.6) ,65px 65px rgba(255, 161, 55, 114.4) ,66px 66px rgba(255, 161, 55, 116.2) ,67px 67px rgba(255, 161, 55, 118) ,68px 68px rgba(255, 161, 55, 119.8) ,69px 69px rgba(255, 161, 55, 121.6) ,70px 70px rgba(255, 161, 55, 123.4) ,71px 71px rgba(255, 161, 55, 125.2) ,72px 72px rgba(255, 161, 55, 127) ,73px 73px rgba(255, 161, 55, 128.8) ,74px 74px rgba(255, 161, 55, 130.6) ,75px 75px rgba(255, 161, 55, 132.4) ,76px 76px rgba(255, 161, 55, 134.2) ,77px 77px rgba(255, 161, 55, 136) ,78px 78px rgba(255, 161, 55, 137.8) ,79px 79px rgba(255, 161, 55, 139.6) ,80px 80px rgba(255, 161, 55, 141.4) ,81px 81px rgba(255, 161, 55, 143.2) ,82px 82px rgba(255, 161, 55, 145) ,83px 83px rgba(255, 161, 55, 146.8) ,84px 84px rgba(255, 161, 55, 148.6) ,85px 85px rgba(255, 161, 55, 150.4) ,86px 86px rgba(255, 161, 55, 152.2) ,87px 87px rgba(255, 161, 55, 154) ,88px 88px rgba(255, 161, 55, 155.8) ,89px 89px rgba(255, 161, 55, 157.6) ,90px 90px rgba(255, 161, 55, 159.4) ,91px 91px rgba(255, 161, 55, 161.2) ,92px 92px rgba(255, 161, 55, 163) ,93px 93px rgba(255, 161, 55, 164.8) ,94px 94px rgba(255, 162, 55, 166.6) ,95px 95px rgba(255, 162, 55, 168.4) ,96px 96px rgba(255, 162, 55, 170.2) ,97px 97px rgba(255, 162, 55, 172) ,98px 98px rgba(255, 162, 55, 173.8) ,99px 99px rgba(255, 162, 55, 175.6) ,100px 100px rgba(255, 162, 55, 177.4);
+        }
+        .card:nth-child(5) .card__front {
+            background: #3e5eb3;
+        }
+        .card:nth-child(5) .card__num {
+            text-shadow: 1px 1px rgba(42, 64, 122, -0.8) ,2px 2px rgba(62, 94, 179, 1) ,3px 3px rgba(72, 109, 207, 2.8) ,4px 4px rgba(78, 118, 224, 4.6) ,5px 5px rgba(82, 124, 236, 6.4) ,6px 6px rgba(84, 128, 244, 8.2) ,7px 7px rgba(87, 131, 250, 10) ,8px 8px rgba(88, 134, 255, 11.8) ,9px 9px rgba(90, 136, 255, 13.6) ,10px 10px rgba(91, 137, 255, 15.4) ,11px 11px rgba(92, 139, 255, 17.2) ,12px 12px rgba(92, 140, 255, 19) ,13px 13px rgba(93, 141, 255, 20.8) ,14px 14px rgba(93, 142, 255, 22.6) ,15px 15px rgba(94, 142, 255, 24.4) ,16px 16px rgba(94, 143, 255, 26.2) ,17px 17px rgba(95, 144, 255, 28) ,18px 18px rgba(95, 144, 255, 29.8) ,19px 19px rgba(95, 145, 255, 31.6) ,20px 20px rgba(96, 145, 255, 33.4) ,21px 21px rgba(96, 146, 255, 35.2) ,22px 22px rgba(96, 146, 255, 37) ,23px 23px rgba(96, 146, 255, 38.8) ,24px 24px rgba(97, 147, 255, 40.6) ,25px 25px rgba(97, 147, 255, 42.4) ,26px 26px rgba(97, 147, 255, 44.2) ,27px 27px rgba(97, 147, 255, 46) ,28px 28px rgba(97, 148, 255, 47.8) ,29px 29px rgba(97, 148, 255, 49.6) ,30px 30px rgba(98, 148, 255, 51.4) ,31px 31px rgba(98, 148, 255, 53.2) ,32px 32px rgba(98, 148, 255, 55) ,33px 33px rgba(98, 148, 255, 56.8) ,34px 34px rgba(98, 149, 255, 58.6) ,35px 35px rgba(98, 149, 255, 60.4) ,36px 36px rgba(98, 149, 255, 62.2) ,37px 37px rgba(98, 149, 255, 64) ,38px 38px rgba(98, 149, 255, 65.8) ,39px 39px rgba(98, 149, 255, 67.6) ,40px 40px rgba(98, 149, 255, 69.4) ,41px 41px rgba(99, 149, 255, 71.2) ,42px 42px rgba(99, 150, 255, 73) ,43px 43px rgba(99, 150, 255, 74.8) ,44px 44px rgba(99, 150, 255, 76.6) ,45px 45px rgba(99, 150, 255, 78.4) ,46px 46px rgba(99, 150, 255, 80.2) ,47px 47px rgba(99, 150, 255, 82) ,48px 48px rgba(99, 150, 255, 83.8) ,49px 49px rgba(99, 150, 255, 85.6) ,50px 50px rgba(99, 150, 255, 87.4) ,51px 51px rgba(99, 150, 255, 89.2) ,52px 52px rgba(99, 150, 255, 91) ,53px 53px rgba(99, 150, 255, 92.8) ,54px 54px rgba(99, 150, 255, 94.6) ,55px 55px rgba(99, 150, 255, 96.4) ,56px 56px rgba(99, 151, 255, 98.2) ,57px 57px rgba(99, 151, 255, 100) ,58px 58px rgba(99, 151, 255, 101.8) ,59px 59px rgba(99, 151, 255, 103.6) ,60px 60px rgba(99, 151, 255, 105.4) ,61px 61px rgba(99, 151, 255, 107.2) ,62px 62px rgba(99, 151, 255, 109) ,63px 63px rgba(100, 151, 255, 110.8) ,64px 64px rgba(100, 151, 255, 112.6) ,65px 65px rgba(100, 151, 255, 114.4) ,66px 66px rgba(100, 151, 255, 116.2) ,67px 67px rgba(100, 151, 255, 118) ,68px 68px rgba(100, 151, 255, 119.8) ,69px 69px rgba(100, 151, 255, 121.6) ,70px 70px rgba(100, 151, 255, 123.4) ,71px 71px rgba(100, 151, 255, 125.2) ,72px 72px rgba(100, 151, 255, 127) ,73px 73px rgba(100, 151, 255, 128.8) ,74px 74px rgba(100, 151, 255, 130.6) ,75px 75px rgba(100, 151, 255, 132.4) ,76px 76px rgba(100, 151, 255, 134.2) ,77px 77px rgba(100, 151, 255, 136) ,78px 78px rgba(100, 151, 255, 137.8) ,79px 79px rgba(100, 151, 255, 139.6) ,80px 80px rgba(100, 151, 255, 141.4) ,81px 81px rgba(100, 151, 255, 143.2) ,82px 82px rgba(100, 152, 255, 145) ,83px 83px rgba(100, 152, 255, 146.8) ,84px 84px rgba(100, 152, 255, 148.6) ,85px 85px rgba(100, 152, 255, 150.4) ,86px 86px rgba(100, 152, 255, 152.2) ,87px 87px rgba(100, 152, 255, 154) ,88px 88px rgba(100, 152, 255, 155.8) ,89px 89px rgba(100, 152, 255, 157.6) ,90px 90px rgba(100, 152, 255, 159.4) ,91px 91px rgba(100, 152, 255, 161.2) ,92px 92px rgba(100, 152, 255, 163) ,93px 93px rgba(100, 152, 255, 164.8) ,94px 94px rgba(100, 152, 255, 166.6) ,95px 95px rgba(100, 152, 255, 168.4) ,96px 96px rgba(100, 152, 255, 170.2) ,97px 97px rgba(100, 152, 255, 172) ,98px 98px rgba(100, 152, 255, 173.8) ,99px 99px rgba(100, 152, 255, 175.6) ,100px 100px rgba(100, 152, 255, 177.4);
+        }
+        .card:nth-child(6) .card__front {
+            background: #aa9e5c;
+        }
+        .card:nth-child(6) .card__num {
+            text-shadow: 1px 1px rgba(122, 113, 64, -0.8) ,2px 2px rgba(170, 158, 92, 1) ,3px 3px rgba(194, 181, 106, 2.8) ,4px 4px rgba(208, 194, 115, 4.6) ,5px 5px rgba(218, 203, 120, 6.4) ,6px 6px rgba(225, 209, 124, 8.2) ,7px 7px rgba(230, 214, 128, 10) ,8px 8px rgba(234, 218, 130, 11.8) ,9px 9px rgba(237, 221, 132, 13.6) ,10px 10px rgba(240, 224, 133, 15.4) ,11px 11px rgba(242, 226, 135, 17.2) ,12px 12px rgba(244, 227, 136, 19) ,13px 13px rgba(246, 229, 137, 20.8) ,14px 14px rgba(247, 230, 137, 22.6) ,15px 15px rgba(248, 231, 138, 24.4) ,16px 16px rgba(249, 232, 139, 26.2) ,17px 17px rgba(250, 233, 139, 28) ,18px 18px rgba(251, 234, 140, 29.8) ,19px 19px rgba(252, 235, 140, 31.6) ,20px 20px rgba(252, 235, 141, 33.4) ,21px 21px rgba(253, 236, 141, 35.2) ,22px 22px rgba(254, 236, 141, 37) ,23px 23px rgba(254, 237, 142, 38.8) ,24px 24px rgba(255, 237, 142, 40.6) ,25px 25px rgba(255, 238, 142, 42.4) ,26px 26px rgba(255, 238, 143, 44.2) ,27px 27px rgba(255, 238, 143, 46) ,28px 28px rgba(255, 239, 143, 47.8) ,29px 29px rgba(255, 239, 143, 49.6) ,30px 30px rgba(255, 239, 143, 51.4) ,31px 31px rgba(255, 240, 144, 53.2) ,32px 32px rgba(255, 240, 144, 55) ,33px 33px rgba(255, 240, 144, 56.8) ,34px 34px rgba(255, 240, 144, 58.6) ,35px 35px rgba(255, 241, 144, 60.4) ,36px 36px rgba(255, 241, 144, 62.2) ,37px 37px rgba(255, 241, 144, 64) ,38px 38px rgba(255, 241, 144, 65.8) ,39px 39px rgba(255, 241, 145, 67.6) ,40px 40px rgba(255, 242, 145, 69.4) ,41px 41px rgba(255, 242, 145, 71.2) ,42px 42px rgba(255, 242, 145, 73) ,43px 43px rgba(255, 242, 145, 74.8) ,44px 44px rgba(255, 242, 145, 76.6) ,45px 45px rgba(255, 242, 145, 78.4) ,46px 46px rgba(255, 242, 145, 80.2) ,47px 47px rgba(255, 242, 145, 82) ,48px 48px rgba(255, 243, 145, 83.8) ,49px 49px rgba(255, 243, 145, 85.6) ,50px 50px rgba(255, 243, 145, 87.4) ,51px 51px rgba(255, 243, 146, 89.2) ,52px 52px rgba(255, 243, 146, 91) ,53px 53px rgba(255, 243, 146, 92.8) ,54px 54px rgba(255, 243, 146, 94.6) ,55px 55px rgba(255, 243, 146, 96.4) ,56px 56px rgba(255, 243, 146, 98.2) ,57px 57px rgba(255, 243, 146, 100) ,58px 58px rgba(255, 244, 146, 101.8) ,59px 59px rgba(255, 244, 146, 103.6) ,60px 60px rgba(255, 244, 146, 105.4) ,61px 61px rgba(255, 244, 146, 107.2) ,62px 62px rgba(255, 244, 146, 109) ,63px 63px rgba(255, 244, 146, 110.8) ,64px 64px rgba(255, 244, 146, 112.6) ,65px 65px rgba(255, 244, 146, 114.4) ,66px 66px rgba(255, 244, 146, 116.2) ,67px 67px rgba(255, 244, 146, 118) ,68px 68px rgba(255, 244, 146, 119.8) ,69px 69px rgba(255, 244, 146, 121.6) ,70px 70px rgba(255, 244, 146, 123.4) ,71px 71px rgba(255, 244, 146, 125.2) ,72px 72px rgba(255, 244, 147, 127) ,73px 73px rgba(255, 244, 147, 128.8) ,74px 74px rgba(255, 245, 147, 130.6) ,75px 75px rgba(255, 245, 147, 132.4) ,76px 76px rgba(255, 245, 147, 134.2) ,77px 77px rgba(255, 245, 147, 136) ,78px 78px rgba(255, 245, 147, 137.8) ,79px 79px rgba(255, 245, 147, 139.6) ,80px 80px rgba(255, 245, 147, 141.4) ,81px 81px rgba(255, 245, 147, 143.2) ,82px 82px rgba(255, 245, 147, 145) ,83px 83px rgba(255, 245, 147, 146.8) ,84px 84px rgba(255, 245, 147, 148.6) ,85px 85px rgba(255, 245, 147, 150.4) ,86px 86px rgba(255, 245, 147, 152.2) ,87px 87px rgba(255, 245, 147, 154) ,88px 88px rgba(255, 245, 147, 155.8) ,89px 89px rgba(255, 245, 147, 157.6) ,90px 90px rgba(255, 245, 147, 159.4) ,91px 91px rgba(255, 245, 147, 161.2) ,92px 92px rgba(255, 245, 147, 163) ,93px 93px rgba(255, 245, 147, 164.8) ,94px 94px rgba(255, 245, 147, 166.6) ,95px 95px rgba(255, 245, 147, 168.4) ,96px 96px rgba(255, 245, 147, 170.2) ,97px 97px rgba(255, 245, 147, 172) ,98px 98px rgba(255, 245, 147, 173.8) ,99px 99px rgba(255, 245, 147, 175.6) ,100px 100px rgba(255, 245, 147, 177.4);
+        }
+        .card:last-child {
+            margin-right: 0;
+        }
+        .card__flipper {
+            cursor: pointer;
+            transform-style: preserve-3d;
+            transition: all 0.6s cubic-bezier(0.23, 1, 0.32, 1);
+        }
+        .card__front, .card__back {
+            position: absolute;
+            backface-visibility: hidden;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 340px;
+        }
+        .card__front {
+            transform: rotateY(0);
+            z-index: 2;
+            overflow: hidden;
+        }
+        .card__back {
+            transform: rotateY(180deg) scale(1.1);
+            background: #141414;
+            display: flex;
+            flex-flow: column wrap;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+        }
+        .card__back span {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+        }
+        .card__name {
+            font-size: 32px;
+            line-height: 0.9;
+            font-weight: 700;
+        }
+        .card__name span {
+            font-size: 14px;
+        }
+        .card__num {
+            font-size: 100px;
+            margin: 0 8px 0 0;
+            font-weight: 700;
+        }
+        @media (max-width: 700px) {
+            .card__num {
+                font-size: 70px;
+            }
+        }
+        @media (max-width: 700px) {
+            .card {
+                width: 100%;
+                height: 290px;
+                margin-right: 0;
+                float: none;
+            }
+            .card .card__front, .card .card__back {
+                height: 290px;
+            }
+        }
+        /* Demo */
+        main {
+            text-align: center;
+        }
+        main h1, main p {
+            margin: 0 0 12px 0;
+        }
+        main h1 {
+            margin-top: 12px;
+            font-weight: 300;
+        }
+        .fa-twitter {
+            color: white;
+            font-size: 30px;
+        }
 
+    </style>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="/socket.io/socket.io.js"></script>
+    <script>
+        const socket = io.connect();
+
+        function setWs() {
+            socket.on('new data', function (msg) {  // when get data from the socket
+                document.getElementById('totalCars').innerHTML=msg;
+            });
+        }
+    </script>
 </head>
-<body>
+<body onload="setWs()">
     <main>
         <h1>Ettrics</h1>
         <p>Google Now inspired info cards.</p>
@@ -17,8 +181,10 @@
         <li class="card">
             <div class="card__flipper">
                 <div class="card__front">
-                    <p class="card__name"><span>Tony</span><br>Romo</p>
-                    <p class="card__num">9</p>
+                    <p class="card__name"><span>Tony</span><br>Number of cars on the Road</p>
+                    <p class="card__num">
+                        <strong id='totalCars'>0</strong>
+                    </p>
                 </div>
                 <div class="card__back">
                     <svg height="180" width="180">
@@ -99,5 +265,66 @@
             </div>
         </li>
     </ul>
+
+    <script>
+        var Flipper = (function() {
+            var card = $('.card');
+            var flipper = card.find('.card__flipper');
+            var win = $(window);
+
+            var flip = function() {
+                var thisCard = $(this);
+                var thisFlipper = thisCard.find('.card__flipper');
+                var offset = thisCard.offset();
+                var xc = win.width() / 2;
+                var yc = win.height() / 2;
+                var docScroll = $(document).scrollTop();
+                var cardW = thisCard.outerWidth() / 2;
+                var cardH = thisCard.height() / 2;
+
+                var transX = xc - offset.left - cardW;
+                var transY = docScroll + yc - offset.top - cardH;
+//     if (offset.top > card.height()) transY = docScroll - offset.top + cardH;
+                if (win.width() <= 700) transY = 0;
+
+                if (card.hasClass('active')) unflip();
+
+                thisCard.css({'z-index': '3'}).addClass('active');
+
+                thisFlipper.css({
+                    'transform': 'translate3d(' + transX + 'px,' + transY + 'px, 0) rotateY(180deg) scale(1)',
+                    '-webkit-transform': 'translate3d(' + transX + 'px,' + transY + 'px, 0) rotateY(180deg) scale(1)',
+                    '-ms-transform': 'translate3d(' + transX + 'px,' + transY + 'px, 0) rotateY(180deg) scale(1)'
+                }).addClass('active');
+
+                return false;
+            };
+
+            var unflip = function(e) {
+                card.css({'z-index': '1'}).removeClass('active');
+                flipper.css({
+                    'transform': 'none',
+                    '-webkit-transform': 'none',
+                    '-ms-transform': 'none'
+                }).removeClass('active');
+            };
+
+            var bindActions = function() {
+                card.on('click', flip);
+                win.on('click', unflip);
+            }
+
+            var init = function() {
+                bindActions();
+            };
+
+            return {
+                init: init
+            };
+
+        }());
+
+        Flipper.init();
+    </script>
 </body>
 </html>
