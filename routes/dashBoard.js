@@ -19,7 +19,7 @@ router.route('/').get(((req, res) => {
         icon: "work"
     };
     const cards = ["Borrowed", "Annual Profit", "Lead Conversion", "Average Income",];
-    res.render("./pages/newDash",{card:cardData});
+    res.render("./pages/index",{card:cardData});
 }));
 
 
