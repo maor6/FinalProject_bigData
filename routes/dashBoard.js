@@ -4,7 +4,6 @@ const router = require('express').Router();
 const redis = require('./../model/RedisForArielReciver');
 
 
-
 router.use(function(req, res, next) {
     res.header("Access-Control-Allow-Origin", "*");
     res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
@@ -20,7 +19,7 @@ router.route('/').get(((req, res) => {
         icon: "work"
     };
     const cards = ["Borrowed", "Annual Profit", "Lead Conversion", "Average Income",];
-    res.render("./pages/index",{card:cardData});
+    res.render("./pages/newDash",{card:cardData});
 }));
 
 
