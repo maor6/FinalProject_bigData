@@ -7,7 +7,7 @@ const port = 3000;
 
 
 //------------ kafka------------
-const kafka = require('./Controller/kafkaProduce');
+// const kafka = require('./Controller/kafkaProduce');
 
 
 //-----------bigML--------------
@@ -25,6 +25,8 @@ app.use(express.static("public"));
 const dash = require("./routes/dashBoard");
 app.use("/dashboard", dash);
 
+const table = require("./routes/table");
+app.use("/table", table);
 
 
 app.get('/', (req, res) => {
@@ -33,10 +35,6 @@ app.get('/', (req, res) => {
 
 app.get('/send', (req, res) => {
     res.render('./pages/sender');
-});
-
-app.get('/table', (req, res) => {
-    res.render('./pages/predictTable');
 });
 
 

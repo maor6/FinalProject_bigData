@@ -14,6 +14,7 @@ function filterData(data) {
             else if (obj.eventType === "exit road") {
                 map[obj.carNumber].exitFrom = obj.section;
             }
+
             delete obj.eventType;
             delete obj._id;
             delete obj.carNumber;
