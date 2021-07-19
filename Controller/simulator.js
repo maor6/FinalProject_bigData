@@ -42,23 +42,24 @@ async function  makeEvents (publish) {  // Simulator
         if(key in map) {
             const numOfSection = map[key].section;  // the current section of the car
             if(numOfSection === 5) {  // Car is in the last section and exit the road
-                await (exitRoad)(map, key, publish);
+                await exitRoad(map, key, publish);
             }
             else {
                 if(Math.random() < 0.6) {  // Probability that car continue to next section
                     map[key].eventType = Events[3];
-                    await (publish)(map[key]);
+                    await publish(map[key]);
                     map[key].eventType = Events[1];
                     map[key].section = map[key].section + 1; //enter to the next section
-                    await (publish)(map[key]);
+                    await publish(map[key]);
                 }
                 else {  // the car want to exit the road
-                    await (exitRoad)(map, key, publish);
+                    await exitRoad(map, key, publish);
                 }
             }
+            console.log(map[key]);
         }
         else {
-            let event = {}; // create a new event and add to map
+            let event = {}; // create a new event
             event.date = randomDate(new Date(2021, 0, 1), new Date(), 0, 24);
             event.carNumber = uuid.v4();
             event.carType = CarType[Math.floor(Math.random() * 3)];
@@ -68,20 +69,20 @@ async function  makeEvents (publish) {  // Simulator
             event.section = Math.floor(Math.random() * 5) + 1;
 
             map[key] = event;  // add the event to the map
-            await (publish)(map[key]);
+            await publish(map[key]);
             map[key].eventType = Events[1];  // change that the car enter also to some section
-            await (publish)(map[key]);
+            await publish(map[key]);
+            console.log(event);
         }
-
-        await (sleep)(2000);
+        await sleep(10000);
     }
 }
 
 async function exitRoad(map, key, publish) {  // help function that handle when car is exit the road
     map[key].eventType = Events[3];
-    await (publish)(map[key]);
+    await publish(map[key]);
     map[key].eventType = Events[2];
-    await (publish)(map[key]);
+    await publish(map[key]);
     delete map[key];
 }
 
