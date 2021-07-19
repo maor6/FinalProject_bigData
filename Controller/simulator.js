@@ -72,9 +72,8 @@ async function  makeEvents (publish) {  // Simulator
             await publish(map[key]);
             map[key].eventType = Events[1];  // change that the car enter also to some section
             await publish(map[key]);
-            console.log(event);
         }
-        await sleep(10000);
+        await sleep(2000);
     }
 }
 
