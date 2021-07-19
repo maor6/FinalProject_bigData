@@ -20,7 +20,14 @@
 
     function setWs() {
       socket.on('new data', function (msg) {  // when get data from the socket
-        document.getElementById('totalCars').innerHTML=msg;
+        // document.getElementById('totalCars').innerHTML=msg;
+        console.log(msg);
+        document.getElementById('S0').innerHTML = msg['1']+msg['2']+msg['3']+msg['4']+msg['5'];
+        document.getElementById('S1').innerHTML = msg['1'];
+        document.getElementById('S2').innerHTML = msg['2'];
+        document.getElementById('S3').innerHTML = msg['3'];
+        document.getElementById('S4').innerHTML = msg['4'];
+        document.getElementById('S5').innerHTML = msg['5'];
       });
 
       socket.on('updateList', function (msg) {  // when get data from the socket
@@ -417,35 +424,55 @@
                           <tbody>
                             <tr>
                               <td>Section 1</td>
-                              <td>$1,671.10</td>
+                              <td>
+                                <p>
+                                  <strong id='S1'>0</strong>
+                                </p>
+                              </td>
                             <td class=" font-weight-medium">
                               <button class="button" onclick="listOfCars(1)">Show list cars</button>
                             </td>
                             </tr>
                             <tr>
                               <td>Section 2</td>
-                              <td>$1,064.75</td>
+                              <td>
+                                <p>
+                                  <strong id='S2'>0</strong>
+                                </p>
+                              </td>
                               <td class=" font-weight-medium"> 
                                 <button class="button" onclick="listOfCars(2)">Show list cars</button>
                               </td>
                             </tr>
                             <tr>
                               <td>Section 3</td>
-                              <td>$1,055.98</td>
+                              <td>
+                                <p>
+                                  <strong id='S3'>0</strong>
+                                </p>
+                              </td>
                               <td class=" font-weight-medium"> 
                                 <button class="button" onclick="listOfCars(3)">Show list cars</button>
                               </td>
                             </tr>
                             <tr>
                               <td>Section 4</td>
-                              <td>$1,045.49</td>
+                              <td>
+                                <p>
+                                  <strong id='S4'>0</strong>
+                                </p>
+                              </td>
                               <td class=" font-weight-medium"> 
                                 <button class="button" onclick="listOfCars(4)">Show list cars</button>
                               </td>
                             </tr>
                             <tr>
                               <td>Section 5</td>
-                              <td>$2,050.93</td>
+                              <td>
+                                <p>
+                                  <strong id='S5'>0</strong>
+                                </p>
+                              </td>
                               <td class=" font-weight-medium"> 
                                 <button class="button" onclick="listOfCars(5)">Show list cars</button>
                               </td>                      
@@ -653,17 +680,8 @@
   <script src="/js/dashboard.js"></script>
 
   <script>
-    function listOfCars(sectionNum)
-    {
+    function listOfCars(sectionNum) {
       socket.emit('carList', sectionNum);
-      var elem=document.getElementById("list-of-cars");
-      // var hide = elem.style.display ==="none";
-      // if (hide) {
-      //   elem.style.display="table";
-      // }
-      // else {
-      //   elem.style.display="none";
-      // }
     }
   </script>
   <script>
