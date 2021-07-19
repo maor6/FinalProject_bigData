@@ -29,6 +29,12 @@ const getRedisData = {
             if(err) console.log(err);
             sendToViewTheList(result);
         });
+    },
+    getNumberOfCars: function (sendToViewTheNumbers) {
+        redisClient.get('sectionsNum', (err, reply) => {
+            if(err) console.log(err);
+            sendToViewTheNumbers(reply);
+        });
     }
 }
 
