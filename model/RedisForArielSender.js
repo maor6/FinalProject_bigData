@@ -67,7 +67,7 @@ const Db = {
     updateNumCars: function (event) {
         redisClient.get('sectionsNum', (err, reply) => {
             let sections = JSON.parse(reply);
-            if (err) throw err;
+            if (err) console.error(err);
             if (event.eventType === "enter road") {
                 sections[0]++;
             }
@@ -75,19 +75,23 @@ const Db = {
                 sections[0]--;
             }
             else if(event.eventType === "enter section") {
-                redisClient.hmset(event.section, event._id, JSON.stringify(event));
-                console.log(typeof event.section)
+                redisClient.hmset(event.section, event._id, JSON.stringify(event), (err, reply) => {
+
+                });
                 sections[event.section]++;
             }
             else {
-                redisClient.hdel(event.section, event._id);
+                redisClient.hdel(event.section, event._id, (err, reply) => {
+
+                });
                 sections[event.section]--;
-                if (sections[event.section] < 0) sections[event.section] = 0;
             }
 
-            if (sections[0] < 0) sections[0] = 0;
             redisClient.set('sectionsNum', JSON.stringify(sections), function (err, reply2) {
-                console.log("number of Cars: " + sections[1]+sections[2]+sections[3]+sections[4]+sections[5]);
+                let number = sections[1]+sections[2]+sections[3]+sections[4]+sections[5];
+                if (number >= 0) {
+                    console.log("number of Cars: " + number);
+                }
             });
 
             redisClient.publish("message", JSON.stringify(sections), function () {  // send message that update the dashboard
