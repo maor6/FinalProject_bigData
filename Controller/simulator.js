@@ -38,7 +38,7 @@ async function  makeEvents (publish) {  // Simulator
     var map = {};
 
     while (true) {
-        const key = Math.floor(Math.random() * 100);
+        const key = Math.floor(Math.random() * 5);
         if(key in map) {
             const numOfSection = map[key].section;  // the current section of the car
             if(numOfSection === 5) {  // Car is in the last section and exit the road
@@ -56,7 +56,6 @@ async function  makeEvents (publish) {  // Simulator
                     await exitRoad(map, key, publish);
                 }
             }
-            console.log(map[key]);
         }
         else {
             let event = {}; // create a new event
