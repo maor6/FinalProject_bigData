@@ -25,8 +25,13 @@ router.route('/').get(((req, res) => {
 
 
 redis.redisC.on("message", function (channel, msg) {
-    io.emit('new data', msg);
+    redisGet.getRedisData.getNumberOfCars(sendSections);
 });
+
+function sendSections(data) {
+    io.emit('new data', JSON.parse(data));
+}
+
 
 //------------ Socket.io ----------------
 io.on("connection", (socket) => {
@@ -36,12 +41,12 @@ io.on("connection", (socket) => {
     });
 });
 
-function sendToViewTheList(data) {
-    // io.emit('updateList', data[Object.keys(data)]);
+async function sendToViewTheList(data) {
     if (data) {
         let arr = Object.keys(data);
+        console.log("array size: " + arr.length);
         let newArr = [];
-        arr.forEach((id) => {
+        await arr.forEach((id) => {
             let car = {};
             let obj = JSON.parse(data[id]);
             car.carNumber = obj.carNumber;
@@ -49,8 +54,7 @@ function sendToViewTheList(data) {
             newArr.push(car);
         });
         io.emit('updateList', newArr);
-    }
-    else {
+    } else {
         io.emit('updateList', []);
     }
 }
