@@ -10,9 +10,6 @@ const port = 3000;
 // const kafka = require('./Controller/kafkaProduce');
 
 
-//-----------bigML--------------
-const bigML = require('./bigMLController');
-
 const bodyParser = require('body-parser');
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
@@ -43,8 +40,6 @@ io.on("connection", (socket) => {
     console.log("new user connected");
     socket.on("totalWaitingCalls", (msg) => { console.log(msg.totalWaiting); });
     socket.on("callDetails", (msg) => { console.log(msg);kafka.publish(msg); });
-    socket.on('train', (msg) => { bigML.createModel();});
-    socket.on('predict', (msg) => {});  // TODO start/stop predict every car that entered with the local model
 });
 
 
