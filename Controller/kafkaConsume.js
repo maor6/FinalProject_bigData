@@ -9,6 +9,11 @@ const mongo = require('./../model/mongoDBController');
 //----------Redis--------------------
 const redis = require('./../model/RedisForArielSender');
 
+const predictController = require('../predictController');
+
+//-----------bigML--------------
+const bigML = require('../bigMLController');
+
 // const kafkaConf = {
 //   "group.id": "cloudkarafka-example",
 //   "metadata.broker.list": "dory-01.srvs.cloudkafka.com:9094,dory-02.srvs.cloudkafka.com:9094,dory-03.srvs.cloudkafka.com:9094".split(","),
@@ -60,8 +65,9 @@ consumer.on("data", async function(m) {
   const json = JSON.parse(m.value.toString());
   await redis.updateNumCars(json);  // save data to redis
   await mongo.CreateEvent(json);  // save data to mongoDB
-  if (json.eventType === "enter road") {
-    // TODO bigML predict
+  if (json.eventType === "enter road" && predictController.isPredicting) {
+    bigML.predict(json.carType, json.isSpecialDay, json.section);
+    // TODO save the predicting cars in map and then when they exit the road compare the prediction
   }
 });
 
