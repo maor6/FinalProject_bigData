@@ -24,8 +24,8 @@ router.route('/').get(((req, res) => {
 }));
 
 
-redis.redisC.on("message", function (channel, msg) {
-    redisGet.getRedisData.getNumberOfCars(sendSections);
+redis.redisC.on("message", async function (channel, msg) {
+    await redisGet.getRedisData.getNumberOfCars(sendSections);
 });
 
 function sendSections(data) {
@@ -36,17 +36,17 @@ function sendSections(data) {
 //------------ Socket.io ----------------
 io.on("connection", (socket) => {
     console.log("new user connected on dashboard");
-    socket.on("carList", (msg) => {
-        redisGet.getRedisData.getSectionList(msg, sendToViewTheList);
+    socket.on("carList", async (msg) => {
+        await redisGet.getRedisData.getSectionList(msg, sendToViewTheList);
     });
 });
 
-async function sendToViewTheList(data) {
+function sendToViewTheList(data) {
     if (data) {
         let arr = Object.keys(data);
         console.log("array size: " + arr.length);
         let newArr = [];
-        await arr.forEach((id) => {
+         arr.forEach((id) => {
             let car = {};
             let obj = JSON.parse(data[id]);
             car.carNumber = obj.carNumber;
