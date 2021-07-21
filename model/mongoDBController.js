@@ -3,10 +3,10 @@ const uri = "mongodb+srv://dbUser:dbUser@cluster0.vmy1y.mongodb.net/myFirstDatab
 
 
 const Db = {
-    CreateEvent: function (m) {
+    CreateEvent: async function (m) {
 
         //---------choose your db here ------------------
-        MongoClient.connect(uri, {useNewUrlParser: true, useUnifiedTopology: true}, function (err, db) {
+        await MongoClient.connect(uri, {useNewUrlParser: true, useUnifiedTopology: true}, function (err, db) {
             if (err) throw err;
             const dbo = db.db("test1");
             dbo.collection("cars").insertOne(m, function (err, res) {
@@ -26,17 +26,17 @@ const Db = {
     UpdateOrder: function (info) {
         console.log('Update Order ' + info);
     },
-    ReadData: function (fun) {
+    ReadData: async function () {
+        try {
+             const client = await MongoClient.connect(uri, {useNewUrlParser: true, useUnifiedTopology: true});
+             const dbo = client.db("test1");
+            // await client.close();
+            return dbo.collection("cars").find({}).toArray();
+        }catch (err) {
+            console.error(err);
+        }finally {
 
-         MongoClient.connect(uri, {useNewUrlParser: true, useUnifiedTopology: true}, function (err, db) {
-            if (err) throw err;
-            const dbo = db.db("test1");
-             dbo.collection("cars").find({}).toArray(function (err, result) {
-                if (err) throw err;
-                fun(result);
-                db.close();
-            });
-        });
+        }
     }
 };
 

@@ -64,8 +64,8 @@ redisClient.on('connect', function () {  // when we connect to redis
 
 
 const Db = {
-    updateNumCars: function (event) {
-        redisClient.get('sectionsNum', (err, reply) => {
+    updateNumCars: async function (event) {
+        redisClient.get('sectionsNum', async (err, reply) => {
             let sections = JSON.parse(reply);
             if (err) console.error(err);
             if (event.eventType === "enter road") {
@@ -75,25 +75,19 @@ const Db = {
                 sections[0]--;
             }
             else if(event.eventType === "enter section") {
-                redisClient.hmset(event.section, event._id, JSON.stringify(event), (err, reply) => {
-
-                });
+                await redisClient.hmset(event.section, event._id, JSON.stringify(event));
                 sections[event.section]++;
             }
             else {
-                redisClient.hdel(event.section, event._id, (err, reply) => {
-
-                });
+                await redisClient.hdel(event.section, event._id);
                 sections[event.section]--;
             }
 
-            redisClient.set('sectionsNum', JSON.stringify(sections), function (err, reply2) {
-                let number = sections[1]+sections[2]+sections[3]+sections[4]+sections[5];
-                if (number >= 0) {
-                    console.log("number of Cars: " + number);
-                }
-            });
-
+            await redisClient.set('sectionsNum', JSON.stringify(sections));
+            let number = sections[1]+sections[2]+sections[3]+sections[4]+sections[5];
+            if (number >= 0) {
+                console.log("number of Cars: " + number);
+            }
             redisClient.publish("message", JSON.stringify(sections), function () {  // send message that update the dashboard
             });
         });
