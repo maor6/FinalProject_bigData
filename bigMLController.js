@@ -11,7 +11,7 @@ const source = new bigml.Source();
 
 const bigML = {
     createModel: async function () {
-        await (createCSV.create)();
+        // await createCSV.create();
         source.create('./files/events.csv', function(error, sourceInfo) {
             if (!error && sourceInfo) {
                 const dataset = new bigml.Dataset();
@@ -37,7 +37,7 @@ const bigML = {
                 if (!error && predictionInfo) {
                     console.log(prediction.resource);
                     const localModel = new bigml.LocalModel(prediction.resource);
-                    localModel.predict({'carType': event.carType, 'exitFrom': "exit road"}, function(error, prediction) {
+                    localModel.predict({'carType': event.carType, 'exitFrom': event.enterFrom}, function(error, prediction) {
                         console.log("the prediction is: " + prediction.prediction);
                     });
                 }
@@ -45,6 +45,7 @@ const bigML = {
         }
         else {
             // TODO send to client that he need first to train
+            console.log("need to train first");
         }
     }
 };
