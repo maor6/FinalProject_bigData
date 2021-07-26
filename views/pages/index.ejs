@@ -404,7 +404,18 @@
 
               <div
                 class="mdc-layout-grid__cell stretch-card mdc-layout-grid__cell--span-3-desktop mdc-layout-grid__cell--span-4-tablet">
-                <%- include ('../partials/Cards.ejs',{card}) %>
+                <div class="mdc-card info-card info-card--success">
+                  <div class="card-inner">
+                    <h5 class="card-title"> <%= card.title %></h5>
+                    <p>
+                      <strong id='S0'>0</strong>
+                    </p>
+                    <p class="tx-12 text-muted"><%= card.percent %> percent</p>
+                    <div class="card-icon-wrapper">
+                      <i class="material-icons"><%= card.icon %></i>
+                    </div>
+                  </div>
+                </div>
               </div>
               
               <div class="mdc-layout-grid__cell stretch-card mdc-layout-grid__cell--span-12">
