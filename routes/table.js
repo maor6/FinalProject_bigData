@@ -19,11 +19,13 @@ router.route('/').get(((req, res) => {
 
 //------------ Socket.io ----------------
 io.on("connection", (socket) => {
-    socket.on('train', async (msg) => { await bigML.createModel();});
-    socket.on('predict', (msg) => {bigML.predict({"carType": "private", "enterFrom": '5'})});  // TODO start/stop predict every car that entered with the local model
+    socket.on('train', async (msg) => {  await bigML.createModel();});
+    socket.on('predict', async (msg) => {
+        predictController.setPredict(msg);
+    });  // TODO start/stop predict every car that entered with the local model
 });
 
-// predictController.setPredict(msg)
+
 // bigML.predict({'carType': "private", 'enterFrom': '5'})
 
 
