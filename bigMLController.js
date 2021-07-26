@@ -4,24 +4,27 @@ const connection = new bigml.BigML('MAOR6',
 
 
 const createCSV = require('./csvWriter');
+const predictController = require('./predictController');
 
 var localModel;
+var modelInfo2;
 
 const source = new bigml.Source();
-
+//var pre;
 const bigML = {
     createModel: async function () {
+        
         // await createCSV.create();
         source.create('./files/events.csv', function(error, sourceInfo) {
             if (!error && sourceInfo) {
                 const dataset = new bigml.Dataset();
                 dataset.create(sourceInfo, function(error, datasetInfo) {
                     if (!error && datasetInfo) {
-                        const model = new bigml.Model();
+                        var model = new bigml.Model();
                         model.create(datasetInfo, function (error, modelInfo) {
                             if (!error && modelInfo) {
-                                console.log(modelInfo.resource);
-                                localModel = new bigml.LocalModel(modelInfo.resource);
+                                console.log("model created");
+                                modelInfo2 = modelInfo;
                             }
                         });
                     }
@@ -29,27 +32,13 @@ const bigML = {
             }
         });
     },
-
-    predict: function (event) {
-        if (localModel) {
-            const prediction = new bigml.Prediction();
-            prediction.create(localModel, {'eventType': "exit road"}, function (error, predictionInfo) {
-                if (!error && predictionInfo) {
-                    console.log(prediction.resource);
-                    const localModel = new bigml.LocalModel(prediction.resource);
-                    localModel.predict({'carType': event.carType, 'exitFrom': event.enterFrom}, function(error, prediction) {
-                        console.log("the prediction is: " + prediction.prediction);
-                    });
-                }
-            });
-        }
-        else {
-            // TODO send to client that he need first to train
-            console.log("need to train first");
-        }
+    predict: async function () {
+        let prediction = new bigml.Prediction();
+        prediction.create(modelInfo2,{'enterFrom':3}, function (err, pre) {});
+        localModel = new bigml.LocalModel(prediction.resource);
+        return await localModel.predict({'enterFrom':3});
     }
-};
-
+}
 
 // const localModel = new bigml.LocalModel(prediction.resource);
 // localModel.predict({'carType': "truck", 'eventType': "exit section"},
@@ -59,4 +48,6 @@ const bigML = {
 
 // bigML.createModel();
 // bigML.predict();
+
 module.exports = bigML
+//module.exports = pre
