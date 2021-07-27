@@ -7,7 +7,9 @@ const port = 3000;
 
 
 //------------ kafka------------
+const kafka2 = require('./Controller/kafkaConsume');
 // const kafka = require('./Controller/kafkaProduce');
+
 
 
 const bodyParser = require('body-parser');
