@@ -7,6 +7,7 @@ const bigML = require('../bigMLController');
 
 const predictController = require('../predictController');
 
+
 // router.use(function(req, res, next) {
 //     res.header("Access-Control-Allow-Origin", "*");
 //     res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
@@ -19,10 +20,8 @@ router.route('/').get(((req, res) => {
 
 //------------ Socket.io ----------------
 io.on("connection", (socket) => {
-    socket.on('train', async (msg) => {  await bigML.createModel();});
-    socket.on('predict', async (msg) => {
-        predictController.setPredict(msg);
-    });  // TODO start/stop predict every car that entered with the local model
+    socket.on('train', async (msg) => {  await bigML.createModel();});  // start train the model
+    socket.on('predict', async (msg) => {bigML.isPredict = msg;});  // set value to start predict
 });
 
 
