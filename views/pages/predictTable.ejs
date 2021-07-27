@@ -99,6 +99,13 @@
         alert("total number: " + msg);
         //document.getElementById('totalSum').innerHTML=msg.value;
       });
+
+      socket.on('prediction', function (msg) {  // when get data to update the table
+        let first = msg.real;
+        let second = msg.pre;
+        console.log(msg);
+        document.getElementById(`e${first}-p${second}`).innerHTML++;
+      });
     }
   </script>
 
