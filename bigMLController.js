@@ -8,12 +8,12 @@ const predictController = require('./predictController');
 
 var localModel;
 var modelInfo2;
+var isPredict = false;
 
 const source = new bigml.Source();
-//var pre;
+
 const bigML = {
     createModel: async function () {
-        
         // await createCSV.create();
         source.create('./files/events.csv', function(error, sourceInfo) {
             if (!error && sourceInfo) {
@@ -32,22 +32,22 @@ const bigML = {
             }
         });
     },
-    predict: async function () {
+    predict: async function (predictData) {
         let prediction = new bigml.Prediction();
-        prediction.create(modelInfo2,{'enterFrom':3}, function (err, pre) {});
+        let pre2;
+        await prediction.create(modelInfo2, predictData,function (err, pre) {
+        });
         localModel = new bigml.LocalModel(prediction.resource);
-        return await localModel.predict({'enterFrom':3});
-    }
+        await localModel.predict(predictData,function (err, prediction) {
+            console.log("prediction is:" + prediction.prediction);
+            pre2 = prediction.prediction;
+            p3 = prediction.prediction;
+        });
+
+        console.log("pre2 is:" + pre2);  // TODO fix that pre2 is initialize
+        return pre2;
+    },
+    isPredict: isPredict,
 }
 
-// const localModel = new bigml.LocalModel(prediction.resource);
-// localModel.predict({'carType': "truck", 'eventType': "exit section"},
-//     function(error, prediction) {
-//         console.log("the prediction is: " + prediction.prediction);
-//     });
-
-// bigML.createModel();
-// bigML.predict();
-
 module.exports = bigML
-//module.exports = pre
