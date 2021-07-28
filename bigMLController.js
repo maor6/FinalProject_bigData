@@ -43,11 +43,18 @@ const bigML = {
             pre2 = prediction.prediction;
             p3 = prediction.prediction;
         });
-
+        await sleep(2000)
         console.log("pre2 is:" + pre2);  // TODO fix that pre2 is initialize
         return pre2;
     },
     isPredict: isPredict,
+}
+
+
+function sleep(ms) {
+    return new Promise((resolve) => {
+        setTimeout(resolve, ms);
+    });
 }
 
 module.exports = bigML
