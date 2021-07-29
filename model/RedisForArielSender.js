@@ -2,6 +2,7 @@ const express = require('express');
 const app = require('express')();
 const server = require('http').Server(app);
 const redis = require('redis');
+const { isObject } = require('util');
 const redisClient = redis.createClient();
 
 
@@ -52,9 +53,13 @@ app.use(function (req, res, next) {
 });
 
 function initialize() {
+    redisClient.flushdb( function (err, succeeded) {
+        console.log(succeeded); // will be true if successfull
+    });
     let sections = {0:0, 1:0, 2:0, 3:0, 4:0, 5:0};
     redisClient.set('sectionsNum', JSON.stringify(sections), function (err, reply) {
     });
+
 }
 
 redisClient.on('connect', function () {  // when we connect to redis
@@ -72,31 +77,32 @@ const Db = {
                 sections[0]++;
             }
             else if(event.eventType === "exit road") {
+               await redisClient.hdel(event.section, event.carNumber);
                 sections[0]--;
             }
-            else if(event.eventType === "enter section") {
-                await redisClient.hmset(event.section, event._id, JSON.stringify(event));
+            if(event.eventType === "enter section") {
+                await redisClient.hset(event.section, event.carNumber, JSON.stringify(event));
                 sections[event.section]++;
             }
-            else {
-                await redisClient.hdel(event.section, event._id);
+            else if(event.eventType === "exit section"){
+                await redisClient.hset(event.section, event.carNumber, JSON.stringify(event));
                 sections[event.section]--;
             }
-
             await redisClient.set('sectionsNum', JSON.stringify(sections));
             let number = sections[1]+sections[2]+sections[3]+sections[4]+sections[5];
-            if (number >= 0) {
-                console.log("number of Cars: " + number);
-            }
+            
+            console.log("number of Cars: " + number);
+         
             redisClient.publish("message", JSON.stringify(sections), function () {  // send message that update the dashboard
             });
+            await sleep(1000);
         });
     }
 }
 
-
-server.listen(6062, function () {
-    console.log('Sender is running on port 6062');
-});
-
+function sleep(ms) {
+    return new Promise((resolve) => {
+        setTimeout(resolve, ms);
+    });
+} 
 module.exports = Db;

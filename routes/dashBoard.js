@@ -25,7 +25,7 @@ router.route('/').get(((req, res) => {
 
 
 redis.redisC.on("message", async function (channel, msg) {
-    await redisGet.getRedisData.getNumberOfCars(sendSections);
+    redisGet.getRedisData.getNumberOfCars(sendSections);
 });
 
 function sendSections(data) {
@@ -40,7 +40,6 @@ io.on("connection", (socket) => {
         await redisGet.getRedisData.getSectionList(msg, sendToViewTheList);
     });
 });
-
 function sendToViewTheList(data) {
     if (data) {
         let arr = Object.keys(data);
@@ -49,9 +48,12 @@ function sendToViewTheList(data) {
          arr.forEach((id) => {
             let car = {};
             let obj = JSON.parse(data[id]);
-            car.carNumber = obj.carNumber;
-            car.carType = obj.carType;
-            newArr.push(car);
+            if(obj.eventType === "enter section"){
+                car.carNumber = obj.carNumber;
+                car.carType = obj.carType;
+                newArr.push(car);
+            }
+
         });
         io.emit('updateList', newArr);
     } else {

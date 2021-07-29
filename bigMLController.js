@@ -14,7 +14,8 @@ const source = new bigml.Source();
 
 const bigML = {
     createModel: async function () {
-        // await createCSV.create();
+        await createCSV.create();
+        await sleep(250);
         source.create('./files/events.csv', function(error, sourceInfo) {
             if (!error && sourceInfo) {
                 const dataset = new bigml.Dataset();
@@ -39,12 +40,10 @@ const bigML = {
         });
         localModel = new bigml.LocalModel(prediction.resource);
         await localModel.predict(predictData,function (err, prediction) {
-            console.log("prediction is:" + prediction.prediction);
             pre2 = prediction.prediction;
             p3 = prediction.prediction;
         });
         await sleep(2000)
-        console.log("pre2 is:" + pre2);  // TODO fix that pre2 is initialize
         return pre2;
     },
     isPredict: isPredict,

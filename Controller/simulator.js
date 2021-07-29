@@ -38,22 +38,24 @@ async function  makeEvents (publish) {  // Simulator
     var map = {};
 
     while (true) {
-        const key = Math.floor(Math.random() * 5);
+        const key = Math.floor(Math.random() * 10);
         if(key in map) {
             const numOfSection = map[key].section;  // the current section of the car
             if(numOfSection === 5) {  // Car is in the last section and exit the road
-                exitRoad(map, key, publish);
+                await exitRoad(map, key, publish);
             }
             else {
                 if(Math.random() < 0.6) {  // Probability that car continue to next section
                     map[key].eventType = Events[3];
                     publish(map[key]);
+                    await sleep(2000);
                     map[key].eventType = Events[1];
                     map[key].section = map[key].section + 1; //enter to the next section
                     publish(map[key]);
+                    await sleep(2000);
                 }
                 else {  // the car want to exit the road
-                    exitRoad(map, key, publish);
+                    await exitRoad(map, key, publish);
                 }
             }
         }
@@ -69,18 +71,21 @@ async function  makeEvents (publish) {  // Simulator
 
             map[key] = event;  // add the event to the map
             publish(map[key]);
+            await sleep(2000);
             map[key].eventType = Events[1];  // change that the car enter also to some section
             publish(map[key]);
+            await sleep(2000);
         }
-        await sleep(2000);
     }
 }
 
-function exitRoad(map, key, publish) {  // help function that handle when car is exit the road
+async function exitRoad(map, key, publish) {  // help function that handle when car is exit the road
     map[key].eventType = Events[3];
     publish(map[key]);
+    await sleep(2000);
     map[key].eventType = Events[2];
     publish(map[key]);
+    await sleep(2000);
     delete map[key];
 }
 
