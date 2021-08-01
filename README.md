@@ -59,9 +59,11 @@ using various cloud services and databases.
 * [WebStorm](https://www.jetbrains.com/webstorm/)
 * [Redis](https://redis.io/)
 * [MongoDB](https://www.mongodb.com)
-* [Kafka](https://kafka.apache.org/)
+* [Cloud Kafka](https://www.cloudkarafka.com/)
 * [Node.js](https://nodejs.org/en/)
 * [Docker](https://www.docker.com/)
+* [bigML](https://bigml.com/)
+
 
 
 <!-- GETTING STARTED -->
